@@ -1,34 +1,31 @@
 const mongoose = require('mongoose');
+const bcrypt = require('bcryptjs');
+const config = require('../config/db');
 
-const HallSchema = new mongoose.Schema({
-  nameHall: String,
-  amount: Number,
-  vacancy: Number,
-  busy: Number,
-})
-
-const FilmSchema = new mongoose.Schema({
-  name: String,
-  long: Number,
-  IMDb: Number,
-  about: String,
-});
-
-const TimeTableSchema = new mongoose.Schema({
-  time: Number,
-  date: Date,
-  film: FilmSchema,
-  hall: HallSchema,
-});
-
-const CinemaSchema = new mongoose.Schema(
-  {
-    nameCinema: String,
-    adress: String,
-    number: Number,
-    aboutCinema: String,
-    timetable: [TimeTableSchema]
-  }
+const CinemaSchema = mongoose.Schema(
+    {
+        "nameCinema": "Beowulf",
+        "adress": "Одинцова 23",
+        "number": "80295556644",
+        "aboutCinema":"Всё хорошо, туалет работает",
+        "timetable":[{
+            "time":"252525",
+            "date":"131313",
+            "film":{
+                    "nameFilm": "ffffff",
+                    "long":"ggggg",
+                    "IMDb":"441",
+                    "aboutFilm":"dfgerherh"
+                },
+            "hall":{
+                    "nameHall":"",
+                    "amount": 25,
+                    "vacancy": 12,
+                    "busy": 4
+            }
+        }]
+    }
 );
 
-exports.CinemaSchema = CinemaSchema;
+// const Cinema = module.exports = mongoose.model('Cinema', CinemaSchema);
+module.exports = mongoose.model('Cinema', CinemaSchema,'cinema');
