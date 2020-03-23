@@ -1,14 +1,14 @@
 const config = require('./db');
-const MongoClient = require('mongodb').MongoClient;
+const mongoose = require("mongoose");
+const { CinemaSchema } = require('../models/cinema-model')
 
-const client = new MongoClient(config.testUrl, {
-  useUnifiedTopology: true,
-  useNewUrlParser: true,
-});
+const Cinema = mongoose.model('Cinema', CinemaSchema);
 
-exports.connect = function(callback) {
-  client.connect((err, client) => {
-    client.db('TEST_DB').collection("TEST_COLLECTION").insertOne({poshla: 'jara'}, (err, res) => console.log("TUT"))
+exports.Cinema = Cinema;
+exports.connect = function (callback) {
+  mongoose.connect(config.testUrl, { useNewUrlParser: true }, (err, client) => {
+    const c = new Cinema({});
+    c.save((err, cinema) => console.log(err, cinema))
     callback(err, client);
   })
 }
