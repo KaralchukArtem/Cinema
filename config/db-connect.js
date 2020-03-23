@@ -1,23 +1,15 @@
-const express = require('express');
 const config = require('./db');
 const MongoClient = require('mongodb').MongoClient;
 
-module.exports = async function start(){
-    try{
-        console.log('In db-connect');
-        const client = new MongoClient(config.db, { 
-            useUnifiedTopology: true,
-            useNewUrlParser: true 
-        });
+const client = new MongoClient(config.testUrl, {
+  useUnifiedTopology: true,
+  useNewUrlParser: true,
+});
 
-        await client.connect(err => {
-            const collection = client.db("test").collection("devices");
-            client.close();
-        });
-    }catch(e) {
-        console.log(e);
-    }
+exports.connect = function(callback) {
+  client.connect((err, client) => {
+    client.db('TEST_DB').collection("TEST_COLLECTION").insertOne({poshla: 'jara'}, (err, res) => console.log("TUT"))
+    callback(err, client);
+  })
 }
-
-// module.exports = modele;
 
