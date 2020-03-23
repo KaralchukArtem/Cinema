@@ -1,23 +1,15 @@
-const express = require('express');
 const config = require('./db');
-const MongoClient = require('mongodb').MongoClient;
+const mongoose = require("mongoose");
+const { CinemaSchema } = require('../models/cinema-model')
 
-module.exports = async function start(){
-    try{
-        console.log('In db-connect');
-        const client = new MongoClient(config.db, { 
-            useUnifiedTopology: true,
-            useNewUrlParser: true 
-        });
+const Cinema = mongoose.model('Cinema', CinemaSchema);
 
-        await client.connect(err => {
-            const collection = client.db("test").collection("devices");
-            client.close();
-        });
-    }catch(e) {
-        console.log(e);
-    }
+exports.Cinema = Cinema;
+exports.connect = function (callback) {
+  mongoose.connect(config.testUrl, { useNewUrlParser: true }, (err, client) => {
+    const c = new Cinema({});
+    c.save((err, cinema) => console.log(err, cinema))
+    callback(err, client);
+  })
 }
-
-// module.exports = modele;
 
