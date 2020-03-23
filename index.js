@@ -2,8 +2,9 @@ const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const path = require('path');
-const CinemaRoute = require('./routes/cinema-route');
-const { connect, Cinema } = require('./config/db-connect');
+const Cinema = require('./routes/cinema-route');
+const CinemaModel = require('./models/cinema-model');
+const connect = require('./config/db-connect');
 
 const app = express();
 
@@ -14,32 +15,29 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(CinemaRoute);
-
-app.get('/cinemas', (req, res) => {
-  Cinema.find({}, (err, cinemas) => {
-    if (err) {
-      console.log(err);
-      res.send({ status: 'error', message: err.toString() })
-      return;
-    }
-    res.send({ status: 'ok', cinemas })
-  });
+app.use(function(req,res,next){
+    console.log('Use connect');
+    connect();
+    next();
 });
 
+app.get('/', (req, res) => {
+    res.send('Hello');
+});
+app.use('/Cinema', Cinema);
+app.get('/Cinema', (req, res) => {
+    CinemaModel.find({})
+    .exec(function(err, cinema){
+        if(err){
+            console.log('Пезда');
+        }else{
+            res.json(cinema);
+        }
+    });
+});
 
-connect((err, client) => {
-  if (err) {
-    console.error(err);
-    return
-  }
-  client.db.collection("TEST_COLLECTION").find({}).toArray((err, data) => console.log(err, data));
-  app.locals.db = client.db;
-  app.listen(PORT, () => {
+app.listen(PORT, () =>{
     console.log('Server start ' + PORT);
-  });
 });
-
-
 
 
