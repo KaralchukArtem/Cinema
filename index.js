@@ -35,10 +35,10 @@ connect((err, client) => {
   }
   //...search document in collection
   client.db.collection("cinemas").find({}).toArray((err, data) => console.log(err, data));
-  
+
   app.locals.db = client.db;
   app.listen(PORT, () => {
-    console.log('Server start ' + PORT);
+    console.log('Server start : ' + PORT);
   });
 });
 
