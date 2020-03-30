@@ -15,8 +15,8 @@ const FilmSchema = new mongoose.Schema({
 });
 
 const TimeTableSchema = new mongoose.Schema({
-  time: Number,
-  date: Date,
+  time: String,
+  date: String,
   film: FilmSchema,
   hall: HallSchema,
 });

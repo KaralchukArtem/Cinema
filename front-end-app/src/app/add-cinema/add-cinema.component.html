@@ -1,0 +1,13 @@
+<p>add-cinema works!</p>
+<div *ngIf="done">Сумма = {{sum}}</div>
+<div class="form-group">
+    <label>Введите первое число</label>
+    <input class="form-control" type="number" name="num1" [(ngModel)]="num1" />
+</div>
+<div class="form-group">
+    <label>Введите второе слово</label>
+    <input class="form-control" type="text" name="num2" [(ngModel)]="num2" />
+</div>
+<div class="form-group">
+    <button class="btn btn-default" (click)="submit()">Отправить</button>
+</div>
