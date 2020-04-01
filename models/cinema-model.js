@@ -25,7 +25,7 @@ const CinemaSchema = new mongoose.Schema(
   {
     nameCinema: String,
     adress: String,
-    number: Number,
+    number: String,
     aboutCinema: String,
     timetable: [TimeTableSchema]
   }

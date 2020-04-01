@@ -5,6 +5,29 @@ const MongoClient = require('mongodb').MongoClient;
 
 const Cinema = mongoose.model('Cinema', CinemaSchema);
 
+exports.modelTime = new Cinema({
+  nameCinema: String,
+  adress: String,
+  number: Number,
+  aboutCinema: String,
+    timetable: [{
+      time: String,
+      date: String,
+      film: {
+        name: String,
+        long: Number,
+        IMDb: Number,
+        about: String,
+      },
+      hall: {
+        nameHall: String,
+        amount: Number,
+        vacancy: Number,
+        busy: Number,
+      },
+    }]
+});
+
 exports.Cinema = Cinema;
 exports.connect = function (callback) {
   mongoose.connect(config.testUrl, { useNewUrlParser: true, useUnifiedTopology: true}, (err, client) => {

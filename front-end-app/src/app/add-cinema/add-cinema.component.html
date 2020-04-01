@@ -1,12 +1,62 @@
 <p>add-cinema works!</p>
-<div *ngIf="done">Сумма = {{sum}}</div>
-<div class="form-group">
-    <label>Введите первое число</label>
-    <input class="form-control" type="number" name="num1" [(ngModel)]="num1" />
+<div *ngIf="done" class="form-group">
+    <label>si, = {{ex.adress}}</label>
 </div>
 <div class="form-group">
-    <label>Введите второе слово</label>
-    <input class="form-control" type="text" name="num2" [(ngModel)]="num2" />
+    <label>Введите nameCinema</label>
+    <input class="form-control" type="text" name="nameCinema" [(ngModel)]="nameCinema" />
+</div>
+<div class="form-group">
+    <label>Введите adress</label>
+    <input class="form-control" type="text" name="adress" [(ngModel)]="adress" />
+</div>
+<div class="form-group">
+    <label>Введите number</label>
+    <input class="form-control" type="text" name="number" [(ngModel)]="number" />
+</div>
+<div class="form-group">
+    <label>Введите aboutCinema</label>
+    <input class="form-control" type="text" name="aboutCinema" [(ngModel)]="aboutCinema" />
+</div>
+<div class="form-group">
+    <label>Введите time</label>
+    <input class="form-control" type="text" name="time" [(ngModel)]="time" />
+</div>
+<div class="form-group">
+    <label>Введите date</label>
+    <input class="form-control" type="text" name="date" [(ngModel)]="date" />
+</div>
+<div class="form-group">
+    <label>Введите name</label>
+    <input class="form-control" type="text" name="name" [(ngModel)]="name" />
+</div>
+<div class="form-group">
+    <label>Введите long</label>
+    <input class="form-control" type="number" name="long" [(ngModel)]="long" />
+</div>
+<div class="form-group">
+    <label>Введите IMDb</label>
+    <input class="form-control" type="number" name="IMDb" [(ngModel)]="IMDb" />
+</div>
+<div class="form-group">
+    <label>Введите about</label>
+    <input class="form-control" type="text" name="about" [(ngModel)]="about" />
+</div>
+<div class="form-group">
+    <label>Введите nameHall</label>
+    <input class="form-control" type="text" name="nameHall" [(ngModel)]="nameHall" />
+</div>
+<div class="form-group">
+    <label>Введите amount</label>
+    <input class="form-control" type="number" name="amount" [(ngModel)]="amount" />
+</div>
+<div class="form-group">
+    <label>Введите vacancy</label>
+    <input class="form-control" type="number" name="vacancy" [(ngModel)]="vacancy" />
+</div>
+<div class="form-group">
+    <label>Введите busy</label>
+    <input class="form-control" type="number" name="busy" [(ngModel)]="busy" />
 </div>
 <div class="form-group">
     <button class="btn btn-default" (click)="submit()">Отправить</button>

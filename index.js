@@ -1,4 +1,6 @@
 const express = require('express');
+const config = require('./config/db');
+const mongoose = require("mongoose");
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const path = require('path');
@@ -29,13 +31,51 @@ app.get('/cinemas', (req, res) => {
 });
 
 app.get('/db-save', (req,res) =>{
-    const number1 = parseInt(req.query.num1);
-    const number2 = parseInt(req.query.num2);
- 
-    // вычисляем сумму
-    const sum = number1 + number2;
+
+    const sum = new Cinema({
+      nameCinema: (req.query.nameCinema),
+      adress: (req.query.adress),
+      number: (req.query.number),
+      aboutCinema: (req.query.aboutCinema),
+        timetable: [{
+          time: (req.query.time),
+          date: (req.query.date),
+          film: {
+            name: (req.query.name),
+            long: parseInt(req.query.long),
+            IMDb: parseInt(req.query.IMDb),
+            about: (req.query.about),
+          },
+          hall: {
+            nameHall:  (req.query.nameHall),
+            amount:  parseInt(req.query.amount),
+            vacancy:  parseInt(req.query.vacancy),
+            busy:  parseInt(req.query.busy),
+          },
+        }]
+    });
+
+    mongoose.connect(config.testUrl, { useNewUrlParser: true, useUnifiedTopology: true}, (err, client) => {
+      sum.save((err, cinema) => console.log(err, cinema))
+      console.log('callback');
+})
 
     res.send({result: sum});
+})
+
+app.get('/db-view-cinema', (req,res) =>{
+
+    mongoose.connect(config.testUrl, { useNewUrlParser: true, useUnifiedTopology: true}, (err, client) => {
+      if(err) return console.log(err);
+      const ex = new Cinema;
+      // client.db.collection("cinemas").findOne({nameCinema:"Tema"}).toArray((err, data) => console.log(err, data));
+      client.db.collection("cinemas").find({nameCinema:"Tema"}).toArray((err, data) => {
+        console.log(err, data)
+        res.send({result:data});
+      });
+      
+      console.log('callback - db-view-cinema');
+    })
 })
 
 connect((err, client) => {
@@ -51,7 +91,3 @@ connect((err, client) => {
     console.log('Server start : ' + PORT);
   });
 });
-
-
-
-
