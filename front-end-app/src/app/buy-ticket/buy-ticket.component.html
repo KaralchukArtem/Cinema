@@ -1,0 +1,53 @@
+<div class="container">
+    <div class="head-info-film">
+        <div class="event">
+            <label class="event-footer">Мериприятие и Время</label>
+            <div *ngFor="let t of model.timetable">
+                <ul *ngIf="t.time == time">
+                    <li>Название фильма: {{t.film.name}}</li>
+                    <li>Время:  {{t.time}}</li>
+                </ul>
+            </div>
+        </div>
+        <div class="place-hall">
+            <label class="event-footer">Количество мест в зале</label>
+            <div *ngFor="let t of model.timetable">
+                <ul *ngIf="t.time == time">
+                    <li>Количество мест: {{t.hall.busy}}</li>
+                </ul>
+            </div>
+        </div>
+        <div class="buy-view-head">
+            <label class="event-footer">Стоимость билета</label>
+            <div *ngFor="let t of model.timetable">
+                <ul *ngIf="t.time == time">
+                    <li>Стоимость: {{price}} бел.р</li>
+                </ul>
+            </div>
+            <button class="btn btn-default" (click)="submit()">ОПЛАТИТЬ</button>
+        </div>
+    </div>
+    <div class="right-side">
+        <div class="form-group">
+            <label>Введите количество мест:</label>
+            <input class="form-control" type="number" name="busy" [(ngModel)]="busy"/>
+        </div>
+    </div>
+    <div class="left-side">
+        <div class="check-info" *ngIf="done">
+            <label>Чек</label>
+            <div *ngFor="let t of model.timetable">
+                <ul *ngIf="t.time == time">
+                    <ul>
+                        <li>Кинотеатр: {{model.nameCinema}}</li>
+                        <li>Фильм: {{t.film.name}}</li>
+                        <li>{{t.time}}</li>
+                        <li>{{busy}}</li>
+                        <li>{{price}}</li>
+                        <li></li>
+                    </ul>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

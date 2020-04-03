@@ -17,6 +17,6 @@ export class CinemaModel {
           amount:  Number;
           vacancy: Number;
           busy:Number;
-        },
-      }]
+        }
+      }];
 }

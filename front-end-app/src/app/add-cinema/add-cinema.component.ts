@@ -32,7 +32,6 @@ export class AddCinemaComponent{
 
     public ex: CinemaModel
     //
-    model: any;
     constructor(private httpService: HttpService){}
 
     submit(){

@@ -45,6 +45,6 @@ export class HttpService{
     }
 
     getCinema(){
-        return this.http.get('http://localhost:3000/db-view-cinema');
+        return this.http.get(`http://localhost:3000/db-view-cinema`);
     }
 }

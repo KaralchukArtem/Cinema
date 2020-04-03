@@ -9,13 +9,15 @@ import { AddCinemaComponent } from './add-cinema/add-cinema.component';
 import { HttpService } from '../services/http.service';
 import { HttpClient, HttpHandler, HttpClientModule } from '@angular/common/http';
 import { ViewCinemaComponent } from './view-cinema/view-cinema.component';
+import { BuyTicketComponent } from './buy-ticket/buy-ticket.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NewsCinemaComponent,
     AddCinemaComponent,
-    ViewCinemaComponent
+    ViewCinemaComponent,
+    BuyTicketComponent
   ],
   imports: [
     BrowserModule,

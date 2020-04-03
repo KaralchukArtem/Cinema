@@ -69,13 +69,35 @@ app.get('/db-view-cinema', (req,res) =>{
       if(err) return console.log(err);
       const ex = new Cinema;
       // client.db.collection("cinemas").findOne({nameCinema:"Tema"}).toArray((err, data) => console.log(err, data));
-      client.db.collection("cinemas").find({nameCinema:"Tema"}).toArray((err, data) => {
+      client.db.collection("cinemas").find({nameCinema:"Викинг"}).toArray((err, data) => {
         console.log(err, data)
         res.send({result:data});
       });
       
       console.log('callback - db-view-cinema');
     })
+})
+
+app.get('/buy-ticket', (req,res) =>{
+
+  mongoose.connect(config.testUrl, { useNewUrlParser: true, useUnifiedTopology: true}, (err, client) => {
+    if(err) return console.log(err);
+    const ex = new Cinema;
+    // client.db.collection("cinemas").findOne({nameCinema:"Tema"}).toArray((err, data) => console.log(err, data));
+    client.db.collection("cinemas").find({"_id": "5e84c468741b8c02946d386a"}).timetable.updateOne({"timetable._id": "5e84c468741b8c02946d386b"},
+    {'$set': {
+          'time': "10:00",
+    }},
+        function(err,model) {
+          if(err){
+              console.log(err);
+              return res.send(err);
+            }
+          return res.json(model);
+    });
+    
+    console.log('callback - buy-ticket');
+  })
 })
 
 connect((err, client) => {

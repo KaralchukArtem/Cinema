@@ -7,18 +7,19 @@ import { CinemaModel } from '../../models/cinema'
   templateUrl: './view-cinema.component.html',
   styleUrls: ['./view-cinema.component.less']
 })
-export class ViewCinemaComponent{
+export class ViewCinemaComponent implements OnInit{
 
-  public model: CinemaModel;
-  public done: boolean = false;
+  public model: CinemaModel
+  
+  done: boolean = false
 
   constructor(private httpService: HttpService) { }
 
-  submit(){
-    this.httpService.getCinema()
-    .subscribe((data:any) => {
-        this.model=data.result;
-        this.done = true;
-    });
-}
+  ngOnInit(){
+    this.httpService.getCinema().subscribe((data:any) => {
+      this.model= data.result[0];
+      this.done = true;
+      console.log(this.model.timetable);
+  });
+  }
 }
