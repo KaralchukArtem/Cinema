@@ -47,4 +47,32 @@ export class HttpService{
     getCinema(){
         return this.http.get(`http://localhost:3000/db-view-cinema`);
     }
+
+    getBuyTicket(
+        //...updating hall
+        amount: Number,
+        vacancy: Number,
+        busy: Number,
+        //...creating new tickets
+        nameCinema: String,
+        film: String,
+        date: String,
+        time: String,
+        cost: String,
+        nameHall: String,
+        number_of_tickets: String,
+    ){
+        const params = new HttpParams()
+        .set('amount', amount.toString())
+        .set('vacancy', vacancy.toString())
+        .set('busy', busy.toString())
+        .set('nameCinema', nameCinema.toString())
+        .set('film', film.toString())
+        .set('date', date.toString())
+        .set('time', time.toString())
+        .set('cost', cost.toString())
+        .set('nameHall', nameHall.toString())
+        .set('number_of_tickets', number_of_tickets.toString());
+        return this.http.get('http://localhost:3000/buy-ticket', {params});
+    }
 }

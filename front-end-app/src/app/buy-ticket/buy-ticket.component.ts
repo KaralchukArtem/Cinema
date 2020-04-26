@@ -44,7 +44,7 @@ export class BuyTicketComponent implements OnInit {
         if(this.busy>0){
           this.price *=this.busy;
         }
-        element.hall.busy += this.busy;
+        busy_s += this.busy;
         element.hall.vacancy = amount - busy_s;
         console.log(element.hall.busy + " busy " + element.hall.amount +" amount "+ element.hall.vacancy+ " vacancy ");
       }else{

@@ -36,16 +36,13 @@
     <div class="left-side">
         <div class="check-info" *ngIf="done">
             <label>Чек</label>
-            <div *ngFor="let t of model.timetable">
+            <div class="info" *ngFor="let t of model.timetable">
                 <ul *ngIf="t.time == time">
-                    <ul>
                         <li>Кинотеатр: {{model.nameCinema}}</li>
                         <li>Фильм: {{t.film.name}}</li>
-                        <li>{{t.time}}</li>
-                        <li>{{busy}}</li>
-                        <li>{{price}}</li>
-                        <li></li>
-                    </ul>
+                        <li>Время: {{t.time}}</li>
+                        <li>Количество месть: {{busy}}</li>
+                        <li>Стоимость: {{price}}</li>
                 </ul>
             </div>
         </div>

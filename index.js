@@ -83,19 +83,28 @@ app.get('/buy-ticket', (req,res) =>{
   mongoose.connect(config.testUrl, { useNewUrlParser: true, useUnifiedTopology: true}, (err, client) => {
     if(err) return console.log(err);
     const ex = new Cinema;
-    // client.db.collection("cinemas").findOne({nameCinema:"Tema"}).toArray((err, data) => console.log(err, data));
-    client.db.collection("cinemas").find({"_id": "5e84c468741b8c02946d386a"}).timetable.updateOne({"timetable._id": "5e84c468741b8c02946d386b"},
-    {'$set': {
-          'time': "10:00",
-    }},
-        function(err,model) {
-          if(err){
-              console.log(err);
-              return res.send(err);
-            }
-          return res.json(model);
-    });
-    
+    client.db.collection("cinemas").updateMany( {"nameCinema":"Викинг","timetable.time": res.query.time}, 
+    {
+      $set : { 
+        'timetable.$.hall.amount': res.query.amount,
+        'timetable.$.hall.vacancy': res.query.vacancy,
+        'timetable.$.hall.busy': res.query.busy
+      }
+    })
+    client.db.collection("cinemas").updateMany({"nameCinema":"Викинг"}, {
+          $set : { 
+            'tickets': [{
+                "cinema":res.query.nameCinema,
+                "film":res.query.film,
+                "date":res.query.date,
+                "time":res.query.time,
+                "cost":res.query.cost,
+                "hall":res.query.nameHall,
+                "number_of_tickets":res.query.number_of_tickets
+              }]
+          }})
+    //...add new document in collection
+    // client.db.collection("cinemas").insertOne({"name": "Tom", "age": 28, languages: ["english", "spanish"]})
     console.log('callback - buy-ticket');
   })
 })

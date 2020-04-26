@@ -74,8 +74,7 @@ exports.connect = function (callback) {
   mongoose.connect(config.testUrl, { useNewUrlParser: true, useUnifiedTopology: true}, (err, client) => {
         const c = new Cinema({});
         //... save new document in collection
-        // sum.save((err, cinema) => console.log(err, cinema))
-        // c.set(  {nameCinema: "Tema"}, {adress: "String"} )
+        // s.save((err, cinema) => console.log(err, cinema))
         console.log('callback');
         callback(err, client);
   })
