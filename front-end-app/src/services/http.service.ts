@@ -24,8 +24,8 @@ export class HttpService{
         nameHall: String,
         amount: Number,
         vacancy: Number,
-        busy: Number,
-    ){
+        busy: Number
+        ){
         const params = new HttpParams()
         .set('nameCinema', nameCinema.toString())
         .set('adress', adress.toString())
@@ -50,18 +50,20 @@ export class HttpService{
 
     getBuyTicket(
         //...updating hall
-        amount: Number,
-        vacancy: Number,
-        busy: Number,
+        amount: String,
+        vacancy: String,
+        busy: String,
         //...creating new tickets
         nameCinema: String,
         film: String,
         date: String,
         time: String,
-        cost: String,
+        cost: Number,
         nameHall: String,
-        number_of_tickets: String,
+        number_of_tickets: String
     ){
+        console.log(film);
+        console.log(time);
         const params = new HttpParams()
         .set('amount', amount.toString())
         .set('vacancy', vacancy.toString())
@@ -75,4 +77,5 @@ export class HttpService{
         .set('number_of_tickets', number_of_tickets.toString());
         return this.http.get('http://localhost:3000/buy-ticket', {params});
     }
+    
 }

@@ -12,13 +12,12 @@ import { error } from '@angular/compiler/src/util';
 export class BuyTicketComponent implements OnInit {
 
   public model: CinemaModel;
-  public time: String;
-  public busy:any;
-  public pop:Number = new Number(2);
+  public time: any;
+  public busy_input:any;
+  public amount:any;
+  public vacancy:any;
   public done:boolean = false;
-
-
-  public price = 0;
+  public price_of_ticket = 0;
 
   constructor(private activateRoute: ActivatedRoute, private httpService: HttpService){
       this.time = activateRoute.snapshot.params['time'];
@@ -33,23 +32,48 @@ export class BuyTicketComponent implements OnInit {
 
   submit(){
     this.done = true;
-    var amount:any;
-    var busy_s:any;
-    this.price = 5
+    var busy: String;
+    var cinema = this.model.nameCinema;
+    var film: any;
+    var date: any;
+    var hall: any;
+    this.price_of_ticket = 5;
 
     this.model.timetable.forEach(element => {
       if(this.time == element.time){
-        amount = element.hall.amount;
-        busy_s = element.hall.busy;
-        if(this.busy>0){
-          this.price *=this.busy;
+
+        this.amount = element.hall.amount;
+        film = element.film.name;
+        date = element.date;
+        hall = element.hall.nameHall;
+        busy = element.hall.busy.toString();
+
+        if(this.busy_input>0){
+          this.price_of_ticket *=this.busy_input;
         }
-        busy_s += this.busy;
-        element.hall.vacancy = amount - busy_s;
-        console.log(element.hall.busy + " busy " + element.hall.amount +" amount "+ element.hall.vacancy+ " vacancy ");
+
+        this.busy_input += +busy;
+        this.vacancy = this.amount - this.busy_input;
       }else{
         console.log(error);
       }
+    });
+    console.log(this.busy_input + " busy " + this.amount +" amount "+ this.vacancy+ " vacancy ");
+
+    this.httpService.getBuyTicket(
+      this.amount,
+      this.vacancy,
+      this.busy_input,
+      cinema,
+      film,
+      date,
+      this.time,
+      this.price_of_ticket,
+      hall,
+      this.busy_input
+    ).subscribe((data:any) => {
+      this.model=data.result;
+      this.done = true;
     });
   }
 }

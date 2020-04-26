@@ -67,8 +67,6 @@ app.get('/db-view-cinema', (req,res) =>{
 
     mongoose.connect(config.testUrl, { useNewUrlParser: true, useUnifiedTopology: true}, (err, client) => {
       if(err) return console.log(err);
-      const ex = new Cinema;
-      // client.db.collection("cinemas").findOne({nameCinema:"Tema"}).toArray((err, data) => console.log(err, data));
       client.db.collection("cinemas").find({nameCinema:"Викинг"}).toArray((err, data) => {
         console.log(err, data)
         res.send({result:data});
@@ -79,29 +77,29 @@ app.get('/db-view-cinema', (req,res) =>{
 })
 
 app.get('/buy-ticket', (req,res) =>{
-
+  query = req.query;
   mongoose.connect(config.testUrl, { useNewUrlParser: true, useUnifiedTopology: true}, (err, client) => {
-    if(err) return console.log(err);
-    const ex = new Cinema;
-    client.db.collection("cinemas").updateMany( {"nameCinema":"Викинг","timetable.time": res.query.time}, 
+
+    client.db.collection("cinemas").updateMany( {"nameCinema":"Викинг","timetable.time": query.time}, 
     {
       $set : { 
-        'timetable.$.hall.amount': res.query.amount,
-        'timetable.$.hall.vacancy': res.query.vacancy,
-        'timetable.$.hall.busy': res.query.busy
+        'timetable.$.hall.amount': query.amount,
+        'timetable.$.hall.vacancy': query.vacancy,
+        'timetable.$.hall.busy': query.busy
       }
     })
+    
     client.db.collection("cinemas").updateMany({"nameCinema":"Викинг"}, {
-          $set : { 
-            'tickets': [{
-                "cinema":res.query.nameCinema,
-                "film":res.query.film,
-                "date":res.query.date,
-                "time":res.query.time,
-                "cost":res.query.cost,
-                "hall":res.query.nameHall,
-                "number_of_tickets":res.query.number_of_tickets
-              }]
+          $push : { 
+            'tickets': {
+                "cinema":query.nameCinema,
+                "film":query.film,
+                "date":query.date,
+                "time":query.time,
+                "cost":query.cost,
+                "hall":query.nameHall,
+                "number_of_tickets":query.number_of_tickets
+              }
           }})
     //...add new document in collection
     // client.db.collection("cinemas").insertOne({"name": "Tom", "age": 28, languages: ["english", "spanish"]})

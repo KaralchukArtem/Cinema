@@ -4,13 +4,17 @@ import { NewsCinemaComponent } from './news-cinema/news-cinema.component';
 import { AddCinemaComponent } from './add-cinema/add-cinema.component';
 import { ViewCinemaComponent } from './view-cinema/view-cinema.component';
 import { BuyTicketComponent } from './buy-ticket/buy-ticket.component';
+import { RegistrationComponent } from './registration/registration.component';
+import { LoginComponent } from './login/login.component';
 
 
 const routes: Routes = [
     {path: 'news', component: NewsCinemaComponent},
     {path: 'add', component: AddCinemaComponent},
     {path: 'view-cinema', component: ViewCinemaComponent},
-    {path: 'buy-ticket/:time', component: BuyTicketComponent}
+    {path: 'buy-ticket/:time', component: BuyTicketComponent},
+    {path: 'registration', component: RegistrationComponent},
+    {path: 'login', component: LoginComponent}
 ];
 
 @NgModule({

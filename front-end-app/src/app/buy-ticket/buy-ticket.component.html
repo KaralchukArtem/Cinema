@@ -13,7 +13,7 @@
             <label class="event-footer">Количество мест в зале</label>
             <div *ngFor="let t of model.timetable">
                 <ul *ngIf="t.time == time">
-                    <li>Количество мест: {{t.hall.busy}}</li>
+                    <li>Количество мест: {{t.hall.vacancy}}</li>
                 </ul>
             </div>
         </div>
@@ -21,7 +21,7 @@
             <label class="event-footer">Стоимость билета</label>
             <div *ngFor="let t of model.timetable">
                 <ul *ngIf="t.time == time">
-                    <li>Стоимость: {{price}} бел.р</li>
+                    <li>Стоимость: {{price_of_ticket}} бел.р</li>
                 </ul>
             </div>
             <button class="btn btn-default" (click)="submit()">ОПЛАТИТЬ</button>
@@ -30,7 +30,7 @@
     <div class="right-side">
         <div class="form-group">
             <label>Введите количество мест:</label>
-            <input class="form-control" type="number" name="busy" [(ngModel)]="busy"/>
+            <input class="form-control" type="number" name="busy_input" [(ngModel)]="busy_input"/>
         </div>
     </div>
     <div class="left-side">
@@ -41,8 +41,8 @@
                         <li>Кинотеатр: {{model.nameCinema}}</li>
                         <li>Фильм: {{t.film.name}}</li>
                         <li>Время: {{t.time}}</li>
-                        <li>Количество месть: {{busy}}</li>
-                        <li>Стоимость: {{price}}</li>
+                        <li>Количество месть: {{busy_input}}</li>
+                        <li>Стоимость: {{price_of_ticket}}</li>
                 </ul>
             </div>
         </div>

@@ -10,6 +10,8 @@ import { HttpService } from '../services/http.service';
 import { HttpClient, HttpHandler, HttpClientModule } from '@angular/common/http';
 import { ViewCinemaComponent } from './view-cinema/view-cinema.component';
 import { BuyTicketComponent } from './buy-ticket/buy-ticket.component';
+import { RegistrationComponent } from './registration/registration.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +19,9 @@ import { BuyTicketComponent } from './buy-ticket/buy-ticket.component';
     NewsCinemaComponent,
     AddCinemaComponent,
     ViewCinemaComponent,
-    BuyTicketComponent
+    BuyTicketComponent,
+    RegistrationComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
