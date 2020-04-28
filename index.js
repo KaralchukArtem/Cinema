@@ -107,6 +107,23 @@ app.get('/buy-ticket', (req,res) =>{
   })
 })
 
+app.get('/registration',(req,res) =>{
+  query = req.query;
+  mongoose.connect(config.testUrl, { useNewUrlParser: true, useUnifiedTopology: true}, (err, client) => {
+
+    client.db.collection("account").updateMany({}, {
+          $push : {
+            "email":query.email,
+            "nickname":query.nickname,
+            "password":query.password,
+            'lower-admin-rights': {
+                "flag":query.flag,
+              }
+          }});
+      console.log('callback - registration');
+  })
+})
+
 connect((err, client) => {
   if (err) {
     console.error(err);

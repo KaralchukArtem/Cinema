@@ -78,4 +78,22 @@ export class HttpService{
         return this.http.get('http://localhost:3000/buy-ticket', {params});
     }
     
+    getRegistration(
+        nickname:String,
+        email:String,
+        password:String,
+        flag:boolean,
+        key?:String
+    ){
+        const params = new HttpParams()
+            .set('nickname',nickname.toString())
+            .set('email',email.toString())
+            .set('password',password.toString())
+            .set('flag',flag.toString());
+        if(key){
+            params.set('key',key.toString());
+        }
+        return this.http.get('http://localhost:3000/registration',{params});
+    }
+
 }
