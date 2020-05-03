@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpService } from 'src/services/http.service';
-import { CinemaModel } from 'src/models/cinema';
+import { CinemaModel } from 'src/models//cinema/cinema';
 import { error } from '@angular/compiler/src/util';
 
 @Component({
@@ -33,10 +33,10 @@ export class BuyTicketComponent implements OnInit {
   submit(){
     this.done = true;
     var busy: String;
-    var cinema = this.model.nameCinema;
+    var nameCinema = this.model.nameCinema;
     var film: any;
     var date: any;
-    var hall: any;
+    var nameHall: any;
     this.price_of_ticket = 5;
 
     this.model.timetable.forEach(element => {
@@ -45,7 +45,7 @@ export class BuyTicketComponent implements OnInit {
         this.amount = element.hall.amount;
         film = element.film.name;
         date = element.date;
-        hall = element.hall.nameHall;
+        nameHall = element.hall.nameHall;
         busy = element.hall.busy.toString();
 
         if(this.busy_input>0){
@@ -64,12 +64,12 @@ export class BuyTicketComponent implements OnInit {
       this.amount,
       this.vacancy,
       this.busy_input,
-      cinema,
+      nameCinema,
       film,
       date,
       this.time,
       this.price_of_ticket,
-      hall,
+      nameHall,
       this.busy_input
     ).subscribe((data:any) => {
       this.model=data.result;

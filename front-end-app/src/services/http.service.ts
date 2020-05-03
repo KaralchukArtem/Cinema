@@ -85,15 +85,23 @@ export class HttpService{
         flag:boolean,
         key?:String
     ){
+        console.log(key);
         const params = new HttpParams()
             .set('nickname',nickname.toString())
             .set('email',email.toString())
             .set('password',password.toString())
-            .set('flag',flag.toString());
-        if(key){
-            params.set('key',key.toString());
-        }
+            .set('flag',flag.toString())
+            .set('key',key.toString());
         return this.http.get('http://localhost:3000/registration',{params});
+    }
+
+    getLogin(
+        password:String,
+        nickname:String
+    ){
+        const params = new HttpParams()
+        .set('password',password.toString())
+        .set('nickname',nickname.toString());
     }
 
 }

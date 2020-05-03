@@ -5,7 +5,7 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const path = require('path');
 const CinemaRoute = require('./routes/cinema-route');
-const { connect, Cinema } = require('./config/db-connect');
+const { connect, Cinema , Account} = require('./config/db-connect');
 
 const app = express();
 
@@ -92,12 +92,12 @@ app.get('/buy-ticket', (req,res) =>{
     client.db.collection("cinemas").updateMany({"nameCinema":"Викинг"}, {
           $push : { 
             'tickets': {
-                "cinema":query.nameCinema,
+                "nameCinema":query.nameCinema,
                 "film":query.film,
                 "date":query.date,
                 "time":query.time,
                 "cost":query.cost,
-                "hall":query.nameHall,
+                "nameHall":query.nameHall,
                 "number_of_tickets":query.number_of_tickets
               }
           }})
@@ -109,26 +109,34 @@ app.get('/buy-ticket', (req,res) =>{
 
 app.get('/registration',(req,res) =>{
   query = req.query;
+  console.log(query)
   mongoose.connect(config.testUrl, { useNewUrlParser: true, useUnifiedTopology: true}, (err, client) => {
 
-    client.db.collection("account").updateMany({}, {
-          $push : {
+    client.db.collection("account").save(
+          {
             "email":query.email,
             "nickname":query.nickname,
             "password":query.password,
             'lower-admin-rights': {
                 "flag":query.flag,
+                "key":query.key
               }
-          }});
-      console.log('callback - registration');
+          });
+    })
+    console.log("callback - registration")
+});
+
+app.get('/login', (req, res) => {
+  query= req.query;
+  connect((err,client) => {
+    if (err) { console.error(err); return }
+    client.db.collection("account").find({}).toArray((err, data) => console.log(err, data));
   })
-})
+  console.log("callback - login");
+});
 
 connect((err, client) => {
-  if (err) {
-    console.error(err);
-    return
-  }
+  if (err) { console.error(err); return }
   //...search document in collection
   client.db.collection("cinemas").find({}).toArray((err, data) => console.log(err, data));
   

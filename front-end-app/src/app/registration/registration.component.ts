@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpService } from 'src/services/http.service';
-import { CinemaModel } from 'src/models/cinema';
+import { CinemaModel } from 'src/models/cinema/cinema';
 
 @Component({
   selector: 'app-registration',
@@ -23,7 +23,6 @@ export class RegistrationComponent implements OnInit {
   ngOnInit(): void {
     this.httpService.getCinema().subscribe((data:any) => {
       this.model= data.result[0];
-      console.log(this.model.timetable);
   });
   }
 
@@ -32,6 +31,8 @@ export class RegistrationComponent implements OnInit {
     this.flag = (this.key == this.model.key)? true : false;
     this.httpService.getRegistration(
       this.nickname,this.email,this.password,this.flag,this.key
-      );
+      ).subscribe((data:any) => {
+        this.model=data.result;
+      });
   }
 }

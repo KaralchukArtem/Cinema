@@ -1,12 +1,14 @@
 <div>
     <div class="form-group">
         <label>Введите Email:</label>
-        <input class="form-control" type="text" name="Email" [(ngModel)]="Email"/>
+        <input class="form-control" type="text" name="email" [(ngModel)]="email"/>
         <label>Введите Nickname:</label>
-        <input class="form-control" type="text" name="Nickname" [(ngModel)]="Nickname"/>
+        <input class="form-control" type="text" name="nickname" [(ngModel)]="nickname"/>
         <label>Введите Password:</label>
-        <input class="form-control" type="text" name="Password" [(ngModel)]="Password"/>
+        <input class="form-control" type="text" name="password" [(ngModel)]="password"/>
         <label>Введите Key:</label>
-        <input class="form-control" type="text" name="Key" [(ngModel)]="Key"/>
+        <input class="form-control" type="text" name="key" [(ngModel)]="key"/>
+
+        <button class="btn btn-default" (click)="submit()">click</button>
     </div>
 </div>

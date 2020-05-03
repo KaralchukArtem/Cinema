@@ -4,5 +4,6 @@ export class AccountModel{
     empasswordail:String;
     lower_admin_rights:{
         flag:boolean;
+        key:String;
     }
 }

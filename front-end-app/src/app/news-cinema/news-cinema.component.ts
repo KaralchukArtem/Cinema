@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpService } from '../../services/http.service';
-import { CinemaModel } from '../../models/cinema'
+import { CinemaModel } from '../../models/cinema/cinema'
 
 @Component({
   selector: 'app-news-cinema',
