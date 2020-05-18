@@ -12,6 +12,9 @@ import { ViewCinemaComponent } from './view-cinema/view-cinema.component';
 import { BuyTicketComponent } from './buy-ticket/buy-ticket.component';
 import { RegistrationComponent } from './registration/registration.component';
 import { LoginComponent } from './login/login.component';
+import { HeaderComponent } from './header/header.component';
+import { FooterComponent } from './footer/footer.component';
+import { AddFilmComponent } from './add-film/add-film.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +24,10 @@ import { LoginComponent } from './login/login.component';
     ViewCinemaComponent,
     BuyTicketComponent,
     RegistrationComponent,
-    LoginComponent
+    LoginComponent,
+    HeaderComponent,
+    FooterComponent,
+    AddFilmComponent
   ],
   imports: [
     BrowserModule,

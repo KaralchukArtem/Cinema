@@ -63,6 +63,8 @@ app.get('/db-save', (req,res) =>{
     res.send({result: sum});
 })
 
+app.get('/db-save-film')
+
 app.get('/db-view-cinema', (req,res) =>{
 
     mongoose.connect(config.testUrl, { useNewUrlParser: true, useUnifiedTopology: true}, (err, client) => {
@@ -117,7 +119,7 @@ app.get('/registration',(req,res) =>{
             "email":query.email,
             "nickname":query.nickname,
             "password":query.password,
-            'lower-admin-rights': {
+            'lower_admin_rights': {
                 "flag":query.flag,
                 "key":query.key
               }
@@ -128,9 +130,16 @@ app.get('/registration',(req,res) =>{
 
 app.get('/login', (req, res) => {
   query= req.query;
+  console.log(query);
   connect((err,client) => {
     if (err) { console.error(err); return }
-    client.db.collection("account").find({}).toArray((err, data) => console.log(err, data));
+    client.db.collection("account").find({email:query.email, password:query.password}).toArray((err, data) => {
+      console.log(err, data)
+      if(data.length != 0) 
+      res.send({result:data});
+      else
+      res.send({result:false});
+    });
   })
   console.log("callback - login");
 });

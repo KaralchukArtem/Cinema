@@ -96,12 +96,13 @@ export class HttpService{
     }
 
     getLogin(
-        password:String,
-        nickname:String
+        email:String,
+        password:String
     ){
         const params = new HttpParams()
         .set('password',password.toString())
-        .set('nickname',nickname.toString());
+        .set('email',email.toString());
+        return this.http.get('http://localhost:3000/login',{params});
     }
 
 }

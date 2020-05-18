@@ -21,13 +21,24 @@ const TimeTableSchema = new mongoose.Schema({
   hall: HallSchema,
 });
 
+const TicketsSchema = new mongoose.Schema({
+  nameCinema: String,
+  film: String,
+  date: String,
+  time: String,
+  cost: String,
+  nameHall: String,
+  number_of_tickets: String,
+});
+
 const CinemaSchema = new mongoose.Schema(
   {
     nameCinema: String,
     adress: String,
     number: String,
     aboutCinema: String,
-    timetable: [TimeTableSchema]
+    timetable: [TimeTableSchema],
+    tickets: [TicketsSchema]
   }
 );
 

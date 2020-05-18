@@ -1,3 +1,4 @@
+<app-header></app-header>
 <div class="conteiner">
     <div class="left-side">
         <div class="info-view">
@@ -37,6 +38,9 @@
                         <button [routerLink] = "['/buy-ticket', t.time ]">buy</button>
                     </li>
                 </ul>
+            </div>
+            <div *ngIf="flag">
+                <button routerLink="/add-film">Добавить</button>
             </div>
         </div>
         <div class="about-cinema">

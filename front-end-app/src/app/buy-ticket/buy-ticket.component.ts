@@ -46,24 +46,24 @@ export class BuyTicketComponent implements OnInit {
         film = element.film.name;
         date = element.date;
         nameHall = element.hall.nameHall;
-        busy = element.hall.busy.toString();
+        busy = element.hall.busy;
 
         if(this.busy_input>0){
           this.price_of_ticket *=this.busy_input;
         }
 
-        this.busy_input += +busy;
-        this.vacancy = this.amount - this.busy_input;
+        busy = this.busy_input + +busy;
+        this.vacancy = this.amount - (+busy);
       }else{
         console.log(error);
       }
     });
-    console.log(this.busy_input + " busy " + this.amount +" amount "+ this.vacancy+ " vacancy ");
+    console.log(busy + " busy " + this.busy_input +" busy_input "+ this.amount +" amount "+ this.vacancy+ " vacancy ");
 
     this.httpService.getBuyTicket(
       this.amount,
       this.vacancy,
-      this.busy_input,
+      busy,
       nameCinema,
       film,
       date,
