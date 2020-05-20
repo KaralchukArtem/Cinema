@@ -63,7 +63,19 @@ app.get('/db-save', (req,res) =>{
     res.send({result: sum});
 })
 
-app.get('/db-save-film')
+app.post('/db-save-film', (req,res) =>
+{
+  query = req.body
+  mongoose.connect(config.testUrl, { useNewUrlParser: true, useUnifiedTopology: true}, (err, client) => {
+    client.db.collection("cinemas").updateMany({"nameCinema": "Викинг"}, {
+      $push : { 
+        'timetable': {
+            ...query
+          }
+      }})
+    console.log('callback add-film');
+  })
+})
 
 app.get('/db-view-cinema', (req,res) =>{
 

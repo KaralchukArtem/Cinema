@@ -6,6 +6,6 @@ export class CinemaModel {
     adress: String;
     number: String;
     aboutCinema: String;
-      timetable: Timetable[];
+      timetable: Array<Timetable> = new Timetable[3];
       tickets: Tickets[];
 }

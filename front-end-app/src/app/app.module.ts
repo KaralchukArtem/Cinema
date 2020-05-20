@@ -15,6 +15,7 @@ import { LoginComponent } from './login/login.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { AddFilmComponent } from './add-film/add-film.component';
+import { AuthenticationService } from 'src/services/authentication.service';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { AddFilmComponent } from './add-film/add-film.component';
     HttpClientModule
   ],
   providers: [
-    HttpService
+    HttpService,
+    AuthenticationService
   ],
   bootstrap: [AppComponent]
 })

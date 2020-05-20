@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
+import { Timetable } from 'src/models/cinema/timetable';
    
 @Injectable()
 export class HttpService{
@@ -99,10 +100,18 @@ export class HttpService{
         email:String,
         password:String
     ){
+        console.log("ssss");
         const params = new HttpParams()
         .set('password',password.toString())
         .set('email',email.toString());
         return this.http.get('http://localhost:3000/login',{params});
+    }
+
+    postAdd( timetable:Timetable )
+    {
+        const body:Timetable = timetable;
+        console.log("postAdd -callback" + body);
+        return this.http.post('http://localhost:3000/db-save-film', body); 
     }
 
 }
