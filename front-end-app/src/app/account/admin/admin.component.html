@@ -1,1 +1,51 @@
-<p>admin works!</p>
+<div class="admin-page">
+    <div class="header">
+        <div *ngIf="account" class="logo">
+            {{account.nickname}}
+        </div>
+    </div>
+    <div class="body">
+        <div class="active-panel">
+            <ul>
+                <li>
+                    <button (click)="Statistical()">Статистика</button>
+                </li>
+            </ul>
+        </div>
+        <div *ngIf="flagStatistical" class="statistical">
+            <div class="filter">
+                <div class="period">
+                    <p class="logo">Период</p>
+                    <p>С <input type="date" [(ngModel)] = "firstDate"/> </p> 
+                    <p>По <input type="date" [(ngModel)] = "secondDate"/> </p> 
+                </div>
+                <div class="film">
+                    <p class="logo">Фильм</p>
+                    <p>Название</p> <input type="text" [(ngModel)] = "film"/>
+                </div>
+            <div>
+                <button (click)="Filter()">Кнопка</button>
+            </div>
+            </div>
+            <div class="table-statistical">
+                <div class="amount-tickets">
+                    <div>
+                        Количество билетов {{tickets}}
+                    </div>
+                    <div>
+                        Итог {{sumTickets}}
+                    </div>
+                </div>
+                <div class="movie-attendance">
+                    <div>
+
+                    </div>
+                    ...
+                    <div>
+                        Заполняемость ... %
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

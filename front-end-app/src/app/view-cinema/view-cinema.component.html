@@ -17,14 +17,14 @@
             <div class="top-name"><h1>Кинотеарт {{model.nameCinema}}</h1></div>
             <div class="calendar">
                 <ul class="week">
-                    <li>ВС</li>
-                    <li>ПН</li>
-                    <li>ВТ</li>
-                    <li>СР</li>
-                    <li>ЧТ</li>
-                    <li>ПТ</li>
-                    <li>СБ</li>
-                    <li>ВС</li>
+                    <li><button>ВС</button></li>
+                    <li><button>ПН</button></li>
+                    <li><button>ВТ</button></li>
+                    <li><button>СР</button></li>
+                    <li><button>ЧТ</button></li>
+                    <li><button>ПТ</button></li>
+                    <li><button>СБ</button></li>
+                    <li><button>ВС</button></li>
                 </ul>
             </div>
         </div>
@@ -39,7 +39,7 @@
                     </li>
                 </ul>
             </div>
-            <div *ngIf="flag">
+            <div *ngIf='flag'>
                 <button routerLink="/add-film">Добавить</button>
             </div>
         </div>

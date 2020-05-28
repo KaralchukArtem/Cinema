@@ -7,6 +7,8 @@ import { BuyTicketComponent } from './buy-ticket/buy-ticket.component';
 import { RegistrationComponent } from './registration/registration.component';
 import { LoginComponent } from './login/login.component';
 import { AddFilmComponent } from './add-film/add-film.component';
+import { AdminComponent } from './account/admin/admin.component';
+import { UserComponent } from './account/user/user.component';
 
 
 const routes: Routes = [
@@ -16,7 +18,10 @@ const routes: Routes = [
     {path: 'buy-ticket/:time', component: BuyTicketComponent},
     {path: 'registration', component: RegistrationComponent},
     {path: 'login', component: LoginComponent},
-    {path: 'add-film', component: AddFilmComponent}
+    {path: 'add-film', component: AddFilmComponent},
+    {path: 'admin', component: AdminComponent},
+    {path: 'user', component: UserComponent},
+
 ];
 
 @NgModule({

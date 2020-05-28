@@ -1,1 +1,8 @@
-<p>header works!</p>
+<div class="header">
+    <div class="logo">Кино</div>
+    <div class="name">
+        <div *ngIf="account">{{account.nickname}}</div>
+        <button *ngIf="!account" class="login" (click)="loginSubmit()">Вход</button>
+        <button class="menu" (click)="menuSubmit()"> {{menu}}</button>
+    </div>
+</div>

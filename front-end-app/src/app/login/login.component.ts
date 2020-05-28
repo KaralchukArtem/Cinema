@@ -14,7 +14,7 @@ export class LoginComponent implements OnInit {
   public email:String;
   public password:String;
   public account:AccountModel;
-  public flag:boolean = false;
+  public flag:boolean;
 
   constructor(private httpService: HttpService,
     private aunthenticationService: AuthenticationService,
@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit {
     this.httpService.getLogin( this.email,this.password).subscribe((date:any)=>{
       this.account = date.result;
       if(this.account){
-        this.flag = true;
+        this.flag = this.account[0].lower_admin_rights.flag;
         console.log(this.account);
         this.aunthenticationService.pullAccount(this.account,this.flag);
         this.route.navigate(['/view-cinema']);
@@ -34,7 +34,6 @@ export class LoginComponent implements OnInit {
         this.flag = false
         alert("Не верный логин или пароль повторите попытку");
       }
-      this.flag = (this.account)?(true):false;
       console.log(this.flag);
     })
   }

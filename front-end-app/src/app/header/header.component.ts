@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from 'src/services/authentication.service';
 import { AccountModel } from 'src/models/account/account';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -10,17 +11,30 @@ import { AccountModel } from 'src/models/account/account';
 export class HeaderComponent implements OnInit {
 
   public flag:boolean = false;
-  public account:AccountModel;
+  public account = new AccountModel();
+  public menu:String;
 
-  constructor(private accountService:AuthenticationService){
+  constructor(private accountService:AuthenticationService,
+    private route: Router){
     this.account = this.accountService.account;
+    if(this.account) this.menu="Меню";
+    else this.menu = "Регистрация";
   }
 
-  ngOnInit(): void {
-    this.flag = (this.account)?true:false;
-    this.accountService.flag = this.flag;
-    console.log(this.accountService.flag + "accountService");
-    console.log(this.flag + " header");
+  ngOnInit(): void {}
+
+  loginSubmit(){
+    this.route.navigate(['/login']);
+  }
+
+
+  menuSubmit(){
+    if(!this.account)
+    this.route.navigate(['/registration']);
+    if(this.account.lower_admin_rights.flag == true)
+    this.route.navigate(['/admin']);
+    else this.route.navigate(['/user']);
+    
   }
 
 }

@@ -11,6 +11,8 @@ import { error } from '@angular/compiler/src/util';
 })
 export class BuyTicketComponent implements OnInit {
 
+//переделать кусок говна, нету модели
+
   public model: CinemaModel;
   public time: any;
   public busy_input:any;
@@ -34,7 +36,7 @@ export class BuyTicketComponent implements OnInit {
     this.done = true;
     var busy: String;
     var nameCinema = this.model.nameCinema;
-    var film: any;
+    let film: any;
     var date: any;
     var nameHall: any;
     this.price_of_ticket = 5;

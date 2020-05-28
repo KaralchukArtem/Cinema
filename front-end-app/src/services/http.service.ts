@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import { Timetable } from 'src/models/cinema/timetable';
+import { AccountModel } from 'src/models/account/account';
    
 @Injectable()
 export class HttpService{
@@ -46,7 +47,7 @@ export class HttpService{
     }
 
     getCinema(){
-        return this.http.get(`http://localhost:3000/db-view-cinema`);
+        return this.http.get('http://localhost:3000/db-view-cinema');
     }
 
     getBuyTicket(
@@ -79,28 +80,18 @@ export class HttpService{
         return this.http.get('http://localhost:3000/buy-ticket', {params});
     }
     
-    getRegistration(
-        nickname:String,
-        email:String,
-        password:String,
-        flag:boolean,
-        key?:String
-    ){
-        console.log(key);
-        const params = new HttpParams()
-            .set('nickname',nickname.toString())
-            .set('email',email.toString())
-            .set('password',password.toString())
-            .set('flag',flag.toString())
-            .set('key',key.toString());
-        return this.http.get('http://localhost:3000/registration',{params});
+    postRegistration( account:AccountModel )
+    {
+        const body:AccountModel = account;
+        console.log("postRegistration -callback" + body);
+        return this.http.post('http://localhost:3000/registration', body);
     }
 
     getLogin(
         email:String,
         password:String
     ){
-        console.log("ssss");
+        console.log("login");
         const params = new HttpParams()
         .set('password',password.toString())
         .set('email',email.toString());
@@ -114,4 +105,9 @@ export class HttpService{
         return this.http.post('http://localhost:3000/db-save-film', body); 
     }
 
+    getCheckDate(){
+        //...доделать не пахет херня (((
+        return this.http.get('http://localhost:3000/checkDate');
+    }
+    
 }

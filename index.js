@@ -121,20 +121,14 @@ app.get('/buy-ticket', (req,res) =>{
   })
 })
 
-app.get('/registration',(req,res) =>{
-  query = req.query;
+app.post('/registration',(req,res) =>{
+  query = req.body;
   console.log(query)
   mongoose.connect(config.testUrl, { useNewUrlParser: true, useUnifiedTopology: true}, (err, client) => {
 
     client.db.collection("account").save(
           {
-            "email":query.email,
-            "nickname":query.nickname,
-            "password":query.password,
-            'lower_admin_rights': {
-                "flag":query.flag,
-                "key":query.key
-              }
+            ...query
           });
     })
     console.log("callback - registration")
@@ -155,6 +149,21 @@ app.get('/login', (req, res) => {
   })
   console.log("callback - login");
 });
+
+app.get('/checkDate', (req,res) =>{
+  query = req.body;
+  console.log(query)
+  mongoose.connect(config.testUrl, { useNewUrlParser: true, useUnifiedTopology: true}, (err, client) => {
+    //...доделать не пахет херня (((
+    client.db.collection("cinemas").find({nameCinema: "Викинг"},
+    {'timetable.$.time': "10:45"}
+    ).toArray((err, data) => {
+        console.log(err, data)
+        res.send({result:data});
+      });
+    })
+    console.log("callback - checkDate")
+})
 
 connect((err, client) => {
   if (err) { console.error(err); return }
