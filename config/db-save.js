@@ -31,9 +31,9 @@ exports.modelTime = new Cinema({
 exports.Cinema = Cinema;
 exports.connect = function (callback) {
   mongoose.connect(config.testUrl, { useNewUrlParser: true, useUnifiedTopology: true}, (err, client) => {
-        const c = new Cinema({});
+        const c = modelTime;
         //... save new document in collection
-        // c.save((err, cinema) => console.log(err, cinema))
+        c.save((err, cinema) => console.log(err, cinema))
         // c.set(  {nameCinema: "Tema"}, {adress: "String"} )
         console.log('callback');
         callback(err, client);
