@@ -17,24 +17,30 @@
             <div class="top-name"><h1>Кинотеарт {{model.nameCinema}}</h1></div>
             <div class="calendar">
                 <ul class="week">
-                    <li><button>ВС</button></li>
-                    <li><button>ПН</button></li>
-                    <li><button>ВТ</button></li>
-                    <li><button>СР</button></li>
-                    <li><button>ЧТ</button></li>
-                    <li><button>ПТ</button></li>
-                    <li><button>СБ</button></li>
-                    <li><button>ВС</button></li>
+                    <li *ngFor="let item of daysRender " (click)="onClickDayBtn(item.date)">
+                      <div *ngIf="current == item.date; else elseBlock" style="background: greenyellow" >
+                      {{item.date}}
+                      <button>
+                        {{item.day}}
+                      </button>
+                      </div>
+                      <ng-template #elseBlock>
+                          {{item.date}}
+                          <button>{{item.day}}</button>
+                      </ng-template>
+                    </li>
                 </ul>
             </div>
         </div>
         <div class="timetable">
             <div class="timetable-film">
                 <ul>
-                    <li *ngFor="let t of model.timetable">{{t.film.name}} </li>
+                    <li *ngFor="let t of films">
+                      {{t.film.name}}
+                    </li>
                 </ul>
                 <ul>
-                    <li *ngFor="let t of model.timetable">{{t.time}} 
+                    <li *ngFor="let t of films">{{t.time}}
                         <button [routerLink] = "['/buy-ticket', t.time ]">buy</button>
                     </li>
                 </ul>
