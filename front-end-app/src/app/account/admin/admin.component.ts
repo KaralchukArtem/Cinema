@@ -4,7 +4,6 @@ import { CinemaModel } from 'src/models/cinema/cinema';
 import { HttpService } from 'src/services/http.service';
 import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/services/authentication.service';
-import { Period } from 'src/models/Period';
 import { NgModule } from '@angular/core';
 import { element } from 'protractor';
 

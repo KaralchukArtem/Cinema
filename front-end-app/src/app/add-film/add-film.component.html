@@ -1,55 +1,31 @@
-<div>
-    <div class="form-group">
+<app-header></app-header>
+<div class="form-group">
+    <div class="form-control">
         <label>Название фильма</label>
-        <input class="form-control" type="text" [(ngModel)]="modelTimetable.film.name" />
+        <input type="text" [(ngModel)]="modelTimetable.film.name" />
     </div>
-    <div class="form-group">
+    <div class="form-control">
         <label>Время</label>
-        <input class="form-control" type="text" [(ngModel)]="modelTimetable.time" />
+        <input type="time" [(ngModel)]="modelTimetable.time" />
     </div>
-    <div class="form-group">
+    <div class="form-control">
         <label>Дата</label>
-        <input class="form-control" type="text" [(ngModel)]="modelTimetable.date" />
+        <input type="date" [(ngModel)]="modelTimetable.date" />
     </div>
-    <div class="form-group">
+    <div class="form-control">
         <label>Длительность</label>
-        <input class="form-control" type="text" [(ngModel)]="modelTimetable.film.long" />
+        <input type="text" [(ngModel)]="modelTimetable.film.long" />
     </div>
-    <div class="form-group">
+    <div class="form-control">
         <label>Описание</label>
-        <input class="form-control" type="text" [(ngModel)]="modelTimetable.film.about" />
+        <input type="text" [(ngModel)]="modelTimetable.film.about" />
     </div>
-    <div class="form-group">
+    <div class="form-control">
         <label>Зал</label>
-        <input class="form-control" type="text" [(ngModel)]="modelTimetable.hall.nameHall" />
+        <select [(ngModel)]="selectedValue">
+            <option *ngFor="let item of modelCinema.hall" value="{{item.nameHall}}">{{item.nameHall}}</option>
+        </select>
     </div>
-    <div class="form-group">
-        <label>Количество мест в зале</label>
-        <input class="form-control" type="text" [(ngModel)]="modelTimetable.hall.amount" />
-    </div>
-    <!-- <div class="form-group">
-        <label>Время сеанса</label>
-        <input class="form-control" type="text" name="nameCinema" [(ngModel)]="nameCinema" />
-    </div>
-    <div class="form-group">
-        <label>Описания фильма</label>
-        <input class="form-control" type="text" name="nameCinema" [(ngModel)]="nameCinema" />
-    </div>
-    <div class="form-group">
-        <label>Продолжительность фильма</label>
-        <input class="form-control" type="text" name="nameCinema" [(ngModel)]="nameCinema" />
-    </div>
-    <div class="form-group">
-        <label>День показа</label>
-        <input class="form-control" type="text" name="nameCinema" [(ngModel)]="nameCinema" />
-    </div>
-    <div class="form-group">
-        <label>Название зала</label>
-        <input class="form-control" type="text" name="nameCinema" [(ngModel)]="nameCinema" />
-    </div>
-    <div class="form-group">
-        <label>Количество доступных мест</label>
-        <input class="form-control" type="text" name="nameCinema" [(ngModel)]="nameCinema" />
-    </div> -->
-    <button (click)="submit()">добавить</button>
+    <!-- routerLink="/view-cinema" -->
+    <button  (click)="submit()">Добавить</button>
 </div>

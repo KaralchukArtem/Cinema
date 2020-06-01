@@ -14,15 +14,15 @@
     </div>
     <div class="right-side">
         <div class="choose-date">
-            <div class="top-name"><h1>Кинотеарт {{model.nameCinema}}</h1></div>
+            <div class="top-name"><h1>Кинотеатр {{model.nameCinema}}</h1></div>
             <div class="calendar">
                 <ul class="week">
                     <li *ngFor="let item of daysRender " (click)="onClickDayBtn(item.date)">
-                      <div *ngIf="current == item.date; else elseBlock" style="background: greenyellow" >
-                      {{item.date}}
-                      <button>
-                        {{item.day}}
-                      </button>
+                      <div *ngIf="current == item.date; else elseBlock" >
+                            {{item.date}}
+                            <button style="background: seagreen">
+                                {{item.day}}
+                            </button>
                       </div>
                       <ng-template #elseBlock>
                           {{item.date}}

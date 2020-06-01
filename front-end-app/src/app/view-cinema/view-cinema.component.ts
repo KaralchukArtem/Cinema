@@ -18,9 +18,27 @@ export class ViewCinemaComponent implements OnInit {
   current = new Date().getDate();
   days = ['ВС', 'ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ'];
 
-  onClickDayBtn(date) {
-    this.initFilms(date);
-    this.current = date;
+
+  constructor(private httpService: HttpService, private accountService: AuthenticationService) {
+    this.flag = this.accountService.flag;
+    this.httpService.getCinema().subscribe((data: any) => {
+      this.model = data.result[0];
+      this.initFilms(new Date().getDate())
+      console.log(this.model)
+    });
+  }
+
+  ngOnInit() {
+    let today = new Date().getDate()
+    let month = new Date().getMonth() + 1
+    for (let i = 0; i < 7; i++) {
+      let weekDay = new Date(`2020-${month}-${today + i}`).getDay()
+      this.daysRender.push({
+        date: today + i,
+        day: this.days[weekDay]
+      })
+      console.log(weekDay, new Date(`2020-${month}-${today + i}`))
+    }
   }
 
   initFilms(date) {
@@ -41,26 +59,9 @@ export class ViewCinemaComponent implements OnInit {
     }
   }
 
-  constructor(private httpService: HttpService, private accountService: AuthenticationService) {
-    this.flag = this.accountService.flag;
-    this.httpService.getCinema().subscribe((data: any) => {
-      this.model = data.result[0];
-      this.initFilms(new Date().getDate())
-    });
+  onClickDayBtn(date) {
+    this.initFilms(date);
+    this.current = date;
   }
 
-  ngOnInit() {
-    let today = new Date().getDate()
-    let month = new Date().getMonth() + 1
-    for (let i = 0; i < 7; i++) {
-      let weekDay = new Date(`2020-${month}-${today + i}`).getDay()
-      this.daysRender.push({
-        date: today + i,
-        day: this.days[weekDay]
-      })
-      console.log(weekDay, new Date(`2020-${month}-${today + i}`))
-    }
-
-
-  }
 }
