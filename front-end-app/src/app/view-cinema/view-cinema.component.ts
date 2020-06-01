@@ -18,44 +18,19 @@ export class ViewCinemaComponent implements OnInit {
   current = new Date().getDate();
   days = ['ВС', 'ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ'];
 
-
-  constructor(private httpService: HttpService, private accountService: AuthenticationService) {
-    this.flag = this.accountService.flag;
-    this.httpService.getCinema().subscribe((data: any) => {
-      this.model = data.result[0];
-      this.initFilms(new Date().getDate())
-      console.log(this.model)
-    });
-  }
-
-  ngOnInit() {
-    let today = new Date().getDate()
-    let month = new Date().getMonth() + 1
-    for (let i = 0; i < 7; i++) {
-      let weekDate = new Date();
-      weekDate.setMonth(month)
-      weekDate.setDate(today+i)
-      let weekDay = weekDate.getDay()
-      this.daysRender.push({
-        date: weekDate.getDate(),
-        day: this.days[weekDay]
-      })
-      console.log(weekDay, new Date(`2020-${month}-${today + i}`))
-    }
+  onClickDayBtn(date) {
+    this.initFilms(date);
+    this.current = date;
   }
 
   initFilms(date) {
     this.films = [];
     for (let i = 0; i < this.model.timetable.length; i++) {
-      let strDate = this.model.timetable[i].date.toString().split('-')
-      let date2 = new Date(`${strDate[0]}-${strDate[1]}-${strDate[2]}`)
-      let today = new Date()
+      let strDate = this.model.timetable[i].date.toString().split('.')
+      let date2 = new Date(`${strDate[2]}-${strDate[1]}-${strDate[0]}`)
+      let today = new Date(date)
       let beforeAdd = new Date(date2);
-      console.log(date2.getDate() + "   date2");
       date2.setDate(date2.getDate() + 14)
-      console.log(date2.getDate() + "   date2 + 14");
-      today.setDate(date);
-      console.log(today + " today")
       if (
         today <= date2 &&
         today >= beforeAdd
@@ -65,9 +40,24 @@ export class ViewCinemaComponent implements OnInit {
     }
   }
 
-  onClickDayBtn(date) {
-    this.initFilms(date);
-    this.current = date;
+  constructor(private httpService: HttpService, private accountService: AuthenticationService) {
+    this.flag = this.accountService.flag;
+    this.httpService.getCinema().subscribe((data: any) => {
+      this.model = data.result[0];
+      this.initFilms(new Date().getDate())
+    });
   }
 
+  ngOnInit() {
+    let today = new Date().getDate()
+    for (let i = 0; i < 7; i++) {
+      let weekDate = new Date();
+      weekDate.setDate(today+i)
+      let weekDay = weekDate.getDay()
+      this.daysRender.push({
+        date: weekDate,
+        day: this.days[weekDay],
+      })
+    }
+  }
 }
