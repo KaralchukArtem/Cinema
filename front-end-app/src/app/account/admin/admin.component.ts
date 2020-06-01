@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/services/authentication.service';
 import { Period } from 'src/models/Period';
 import { NgModule } from '@angular/core';
+import { element } from 'protractor';
 
 @Component({
   selector: 'app-admin',
@@ -21,7 +22,7 @@ export class AdminComponent implements OnInit {
   public firstDate:String;
   public secondDate:String;
 
-  public tickets:Number;
+  public tickets:number = 0;
   public sumTickets:Number;
   public film:String;
 
@@ -51,7 +52,23 @@ export class AdminComponent implements OnInit {
     let day2 = new Date( +second[0], +second[1], +second[2]);
     let day3 = (+day2- +day1)/(60*60*24*1000);
     
-    console.log(first[2] + " firstdate " + this.secondDate+ " se");
+    if(day1 < day2) console.log("da1")
+    else console.log("da2")
+
+    this.cinema.timetable.forEach(element => {
+      let dateCheck = element.date.split(".");
+      if(dateCheck[2] >= first[0] && dateCheck[1] >= first[1] && dateCheck[0] >= first[2] &&
+        dateCheck[2] <= second[0] && dateCheck[1] <= second[1] && dateCheck[0] <= second[2]){
+          // let busy = +element.hall.busy;
+          this.tickets = this.tickets + +element.hall.busy; 
+          console.log(this.tickets + " tickets ");
+        }
+    });
+
+    this.sumTickets = 6 * +this.tickets;
+    console.log(this.sumTickets + " sumTickets ");
+
+    console.log(first + " firstdate " + second + " se " + this.cinema.timetable[0].date);
     console.log(day1 + " firstdate " + day2+ " se");
 
     console.log(day3+ " day3");
