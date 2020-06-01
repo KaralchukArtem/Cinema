@@ -19,13 +19,13 @@
                 <ul class="week">
                     <li *ngFor="let item of daysRender " (click)="onClickDayBtn(item.date)">
                       <div *ngIf="current == item.date; else elseBlock" style="background: greenyellow" >
-                      {{item.date}}
+                      {{item.date.getDay()}}
                       <button>
                         {{item.day}}
                       </button>
                       </div>
                       <ng-template #elseBlock>
-                          {{item.date}}
+                          {{item.date.getDay()}}
                           <button>{{item.day}}</button>
                       </ng-template>
                     </li>
