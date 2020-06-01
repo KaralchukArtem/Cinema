@@ -32,7 +32,10 @@ export class ViewCinemaComponent implements OnInit {
     let today = new Date().getDate()
     let month = new Date().getMonth() + 1
     for (let i = 0; i < 7; i++) {
-      let weekDay = new Date(`2020-${month}-${today + i}`).getDay()
+      let weekDate = new Date();
+      weekDate.setMonth(month)
+      weekDate.setDate(today+i)
+      let weekDay = weekDate.getDay()
       this.daysRender.push({
         date: today + i,
         day: this.days[weekDay]
