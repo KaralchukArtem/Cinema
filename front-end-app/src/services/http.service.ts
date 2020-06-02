@@ -2,12 +2,14 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import { Timetable } from 'src/models/cinema/timetable';
 import { AccountModel } from 'src/models/account/account';
-   
+
 @Injectable()
 export class HttpService{
-   
+
     constructor(private http: HttpClient){ }
-      
+
+    api:string = 'http://localhost:3001'
+
     getSum(
         // CinemaSchema
         nameCinema: String,
@@ -43,11 +45,10 @@ export class HttpService{
         .set('amount', amount.toString())
         .set('vacancy', vacancy.toString())
         .set('busy', busy.toString());
-        return this.http.get('http://localhost:3000/db-save', {params});
+        return this.http.get(this.api + '/db-save/', {params});
     }
-
     getCinema(){
-        return this.http.get('http://localhost:3000/db-view-cinema');
+        return this.http.get(this.api + '/db-view-cinema/');
     }
 
     getBuyTicket(
@@ -77,14 +78,14 @@ export class HttpService{
         .set('cost', cost.toString())
         .set('nameHall', nameHall.toString())
         .set('number_of_tickets', number_of_tickets.toString());
-        return this.http.get('http://localhost:3000/buy-ticket', {params});
+        return this.http.get(this.api + '/buy-ticket/', {params});
     }
-    
+
     postRegistration( account:AccountModel )
     {
         const body:AccountModel = account;
         console.log("postRegistration -callback" + body);
-        return this.http.post('http://localhost:3000/registration', body);
+        return this.http.post(this.api + '/registration/', body);
     }
 
     getLogin(
@@ -95,19 +96,19 @@ export class HttpService{
         const params = new HttpParams()
         .set('password',password.toString())
         .set('email',email.toString());
-        return this.http.get('http://localhost:3000/login',{params});
+        return this.http.get(this.api + '/login/',{params});
     }
 
     postAdd( timetable:Timetable )
     {
         const body:Timetable = timetable;
         console.log("postAdd -callback" + body);
-        return this.http.post('http://localhost:3000/db-save-film', body); 
+        return this.http.post(this.api + '/db-save-film/', body);
     }
 
     getCheckDate(){
         //...доделать не пахет херня (((
-        return this.http.get('http://localhost:3000/checkDate');
+        return this.http.get(this.api + '/checkDate/');
     }
-    
+
 }

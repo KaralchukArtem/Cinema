@@ -18,14 +18,14 @@
             <div class="calendar">
                 <ul class="week">
                     <li *ngFor="let item of daysRender " (click)="onClickDayBtn(item.date)">
-                      <div *ngIf="current == item.date; else elseBlock" style="background: greenyellow" >
-                      {{item.date.getDay()}}
+                      <div *ngIf="current == item.date.getDate(); else elseBlock" style="background: greenyellow" >
+                      {{item.date.getDate()}}
                       <button>
                         {{item.day}}
                       </button>
                       </div>
                       <ng-template #elseBlock>
-                          {{item.date.getDay()}}
+                          {{item.date.getDate()}}
                           <button>{{item.day}}</button>
                       </ng-template>
                     </li>

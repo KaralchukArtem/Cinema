@@ -20,7 +20,7 @@ export class ViewCinemaComponent implements OnInit {
 
   onClickDayBtn(date) {
     this.initFilms(date);
-    this.current = date;
+    this.current = date.getDate();
   }
 
   initFilms(date) {
@@ -49,14 +49,12 @@ export class ViewCinemaComponent implements OnInit {
   }
 
   ngOnInit() {
-    let today = new Date().getDate()
     for (let i = 0; i < 7; i++) {
       let weekDate = new Date();
-      weekDate.setDate(today+i)
-      let weekDay = weekDate.getDay()
+      weekDate.setDate(weekDate.getDate()+i)
       this.daysRender.push({
         date: weekDate,
-        day: this.days[weekDay],
+        day: this.days[weekDate.getDay()],
       })
     }
   }
