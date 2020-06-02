@@ -33,9 +33,25 @@ export class AddFilmComponent implements OnInit {
       this.modelTimetable.film.IMDb = 0;
     }
   });
-  this.httpService.postAdd(this.modelTimetable).subscribe((data:any) => {
-    this.ex=data.result;
-  });;
+  this.modelCinema.timetable.forEach(element => {
+    
+     let dateInputClient = this.modelTimetable.date;
+     let date = new Date(+dateInputClient[0], +dateInputClient[1], +dateInputClient[2]);
+
+     console.log(date + " date")
+
+     
+     let elementDate = new Date(+element.date);
+     console.log(elementDate + " elementDate")
+    if( element.date == date && element.hall.nameHall == this.selectedValue){
+     let time = element.time.split(':');
+     let long = element.film.long;
+    //  date.setMinutes(date.getMinutes() + element.film.long)
+    }
+  });
+  // this.httpService.postAdd(this.modelTimetable).subscribe((data:any) => {
+  //   this.ex=data.result;
+  // });;
   console.log(this.modelTimetable);
   }
 

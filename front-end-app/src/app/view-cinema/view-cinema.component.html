@@ -20,7 +20,7 @@
                     <li *ngFor="let item of daysRender " (click)="onClickDayBtn(item.date)">
                       <div *ngIf="current == item.date; else elseBlock" >
                             {{item.date}}
-                            <button style="background: white">
+                            <button style="background: #63795d">
                                 {{item.day}}
                             </button>
                       </div>

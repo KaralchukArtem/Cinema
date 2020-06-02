@@ -3,7 +3,7 @@ import { Hall } from './hall';
 
 export class Timetable {
     time: String;
-    date: String;
+    date: Date;
     film = new Film(); 
     hall = new Hall();
 }
