@@ -35,18 +35,30 @@ export class AddFilmComponent implements OnInit {
   });
   this.modelCinema.timetable.forEach(element => {
     
-     let dateInputClient = this.modelTimetable.date;
+     let dateInputClient = this.modelTimetable.date.split('-');
      let date = new Date(+dateInputClient[0], +dateInputClient[1], +dateInputClient[2]);
 
-     console.log(date + " date")
-
+     let dateTimetable = element.date.split('-');
+     let date2 = new Date(+dateTimetable[0],+dateTimetable[1],+dateTimetable[2])
      
-     let elementDate = new Date(+element.date);
-     console.log(elementDate + " elementDate")
-    if( element.date == date && element.hall.nameHall == this.selectedValue){
-     let time = element.time.split(':');
-     let long = element.film.long;
-    //  date.setMinutes(date.getMinutes() + element.film.long)
+    if(date.getDate() == date2.getDate() && element.hall.nameHall == this.selectedValue){
+      let timeTimetable = element.time.split(':');
+      let timeInputClient = this.modelTimetable.time.split(':');
+
+      date = new Date(date.getFullYear(),date.getMonth(),date.getDate(),+timeInputClient[0],+timeInputClient[1]);
+      console.log(date + " date");
+      date2 = new Date(date2.getFullYear(),date2.getMonth(),date2.getDate(),+timeTimetable[0],+timeTimetable[1]);
+      //...5 minute for a exit cinema
+      date2.setMinutes(date2.getMinutes() + +element.film.long + 5);
+      console.log(date2 + " date2");
+
+      console.log(date.getTime() + " time");
+      console.log(date2.getTime() + " time2");
+      
+      if(
+        date.getTime() > date2.getTime() &&
+        date.getTime() < date2.getTime()) console.log(true);
+      else console.log(false);
     }
   });
   // this.httpService.postAdd(this.modelTimetable).subscribe((data:any) => {
