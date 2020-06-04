@@ -20,7 +20,6 @@ export class ViewCinemaComponent implements OnInit {
 
   onClickDayBtn(date) {
     this.current = date.getDate();
-    console.log(this.current);
     this.initFilms(date);
   }
 
@@ -30,7 +29,6 @@ export class ViewCinemaComponent implements OnInit {
       let strDate = this.model.timetable[i].date.toString().split('-')
       let date2 = new Date(`${strDate[0]}-${strDate[1]}-${strDate[2]}`)
       let today = new Date(date)
-      console.log(today.getDate());
       let beforeAdd = new Date(date2);
       date2.setDate(date2.getDate() + 14)
       if (
@@ -55,10 +53,9 @@ export class ViewCinemaComponent implements OnInit {
       let weekDate = new Date();
       weekDate.setDate(weekDate.getDate()+i)
       this.daysRender.push({
-        date: weekDate.getDate(),
+        date: weekDate,
         day: this.days[weekDate.getDay()],
       })
-      console.log(this.daysRender);
     }
   }
 }

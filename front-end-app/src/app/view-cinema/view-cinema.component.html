@@ -18,9 +18,9 @@
             <div class="calendar">
                 <ul class="week">
                     <li *ngFor="let item of daysRender " (click)="onClickDayBtn(item.date)">
-                      <div *ngIf="current == item.date.getDate(); else elseBlock" style="background: greenyellow" >
+                      <div *ngIf="current == item.date.getDate(); else elseBlock">
                         {{item.date.getDate()}}
-                        <button>{{item.day}}</button>
+                        <button style="background: black" >{{item.day}}</button>
                       </div>
                       <ng-template #elseBlock>
                           {{item.date.getDate()}}
@@ -43,8 +43,8 @@
                     </li>
                 </ul>
             </div>
-            <div *ngIf='flag'>
-                <button routerLink="/add-film">Добавить</button>
+            <div class="add-film" *ngIf='flag'>
+                <button routerLink="/add-film">+</button>
             </div>
         </div>
         <div class="about-cinema">
