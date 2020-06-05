@@ -77,6 +77,8 @@ export class AddFilmComponent implements OnInit {
           console.log(dateInputClient.getTime()+ " dateInputClient");
           console.log(dateInputClientClose.getTime()+ " dateInputClientClose");
 
+
+
           if((
               dateServerTable.getTime() <= dateInputClient.getTime() &&
               dateServerTableClose.getTime() <= dateInputClient.getTime()
@@ -134,6 +136,7 @@ export class AddFilmComponent implements OnInit {
   if(triggerNumber != this.triggerContinuation.length){
     alert("Фильм нельзя добавить");
   }
+
 
   console.log(this.modelTimetable);
   }

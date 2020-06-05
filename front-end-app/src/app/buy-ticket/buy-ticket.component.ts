@@ -33,7 +33,6 @@ export class BuyTicketComponent implements OnInit {
   }
 
   submit(){
-    this.done = true;
     var busy: String;
     var nameCinema = this.model.nameCinema;
     let film: any;
@@ -55,27 +54,32 @@ export class BuyTicketComponent implements OnInit {
         }
 
         busy = this.busy_input + +busy;
-        this.vacancy = this.amount - (+busy);
+        if((this.amount - (+busy))>=0){
+          this.done = true;
+          this.vacancy = this.amount - (+busy);
+          alert("Попука проведена успешна");
+          this.httpService.getBuyTicket(
+            this.amount,
+            this.vacancy,
+            busy,
+            nameCinema,
+            film,
+            date,
+            this.time,
+            this.price_of_ticket,
+            nameHall,
+            this.busy_input
+          ).subscribe((data:any) => {
+            this.model=data.result;
+            this.done = true;
+          });
+        }else{
+          this.price_of_ticket = 0;
+          alert("Превысили лимит свободных билетов")}
       }else{
         console.log(error);
       }
     });
     console.log(busy + " busy " + this.busy_input +" busy_input "+ this.amount +" amount "+ this.vacancy+ " vacancy ");
-
-    this.httpService.getBuyTicket(
-      this.amount,
-      this.vacancy,
-      busy,
-      nameCinema,
-      film,
-      date,
-      this.time,
-      this.price_of_ticket,
-      nameHall,
-      this.busy_input
-    ).subscribe((data:any) => {
-      this.model=data.result;
-      this.done = true;
-    });
   }
 }
