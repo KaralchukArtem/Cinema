@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import { Timetable } from 'src/models/cinema/timetable';
 import { AccountModel } from 'src/models/account/account';
+import { Tickets } from 'src/models/cinema/tickets';
    
 @Injectable()
 export class HttpService{
@@ -50,36 +51,22 @@ export class HttpService{
         return this.http.get('http://localhost:3000/db-view-cinema');
     }
 
-    getBuyTicket(
-        //...updating hall
-        amount: String,
-        vacancy: String,
-        busy: String,
-        //...creating new tickets
-        nameCinema: String,
-        film: String,
-        date: String,
-        time: String,
-        cost: Number,
-        nameHall: String,
-        number_of_tickets: String
+    postUpdateHall(
+        timetable:Timetable
     ){
-        console.log(film);
-        console.log(time);
-        const params = new HttpParams()
-        .set('amount', amount.toString())
-        .set('vacancy', vacancy.toString())
-        .set('busy', busy.toString())
-        .set('nameCinema', nameCinema.toString())
-        .set('film', film.toString())
-        .set('date', date.toString())
-        .set('time', time.toString())
-        .set('cost', cost.toString())
-        .set('nameHall', nameHall.toString())
-        .set('number_of_tickets', number_of_tickets.toString());
-        return this.http.get('http://localhost:3000/buy-ticket', {params});
+        const body:Timetable = timetable;
+        console.log("postUpdateHall -callback" + body);
+        return this.http.post('http://localhost:3000/updateHall', body);
     }
     
+    postCreateTicket(
+        ticket:Tickets
+    ){
+        const body:Tickets = ticket;
+        console.log("postCreateTicket -callback" + body);
+        return this.http.post('http://localhost:3000/createTicket', body);
+    }
+
     postRegistration( account:AccountModel )
     {
         const body:AccountModel = account;

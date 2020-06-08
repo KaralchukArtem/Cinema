@@ -90,28 +90,42 @@ app.get('/db-view-cinema', (req,res) =>{
     })
 })
 
-app.get('/buy-ticket', (req,res) =>{
-  query = req.query;
+app.post('/updateHall', (req,res) =>{
+  query = req.body;
+  console.log(query);
+  console.log("updateHall");
   mongoose.connect(config.testUrl, { useNewUrlParser: true, useUnifiedTopology: true}, (err, client) => {
 
-    client.db.collection("cinemas").updateMany( {"nameCinema":"Викинг","timetable.time": query.time}, 
+    client.db.collection("cinemas").updateMany( {"nameCinema":"Викинг","timetable.time":query.time, "timetable.date":query.date}, 
     {
       $set : { 
-        'timetable.$.hall.amount': query.amount,
-        'timetable.$.hall.vacancy': query.vacancy,
-        'timetable.$.hall.busy': query.busy
+        'timetable.$.hall.amount': query.hall.amount,
+        'timetable.$.hall.vacancy': query.hall.vacancy,
+        'timetable.$.hall.busy': query.hall.busy
       }
     })
-    
+ 
+    //...add new document in collection
+    // client.db.collection("cinemas").insertOne({"name": "Tom", "age": 28, languages: ["english", "spanish"]})
+    console.log('callback - buy-ticket');
+  })
+})
+
+app.post('/createTicket', (req,res) =>{
+  query = req.body;
+  console.log(query);
+  console.log("createTicket");
+  mongoose.connect(config.testUrl, { useNewUrlParser: true, useUnifiedTopology: true}, (err, client) => {
+
     client.db.collection("cinemas").updateMany({"nameCinema":"Викинг"}, {
           $push : { 
             'tickets': {
-                "nameCinema":query.nameCinema,
-                "film":query.film,
-                "date":query.date,
-                "time":query.time,
+                "nameCinema":"Викинг",
+                "film":query.filmname,
+                "date":query.datefilm,
+                "time":query.timefilm,
                 "cost":query.cost,
-                "nameHall":query.nameHall,
+                "nameHall":query.hallname,
                 "number_of_tickets":query.number_of_tickets
               }
           }})

@@ -33,6 +33,7 @@ export class AddFilmComponent implements OnInit {
   this.triggerContinuation = [];
   this.triggerExit = [];
   let triggerNumber:number = 0;
+  let defaultSwithcase:number = 0;
 
   this.modelCinema.hall.forEach(element => {
     if(element.nameHall == this.selectedValue){
@@ -41,75 +42,82 @@ export class AddFilmComponent implements OnInit {
     }
   });
 
-  this.modelCinema.timetable.forEach(element => {
+  if(this.modelCinema.timetable.length == 0){
+    alert("Фильм успешно добавлени");
+    this.httpService.postAdd(this.modelTimetable).subscribe((data:any) => {
+      this.ex=data.result;
+    });;
+    this.router.navigate(['view-cinema']);
+  }else{
+    this.modelCinema.timetable.forEach(element => {
     
-     let dateClient = this.modelTimetable.date.split('-');
-     let dateInputClient = new Date(+dateClient[0], +dateClient[1], +dateClient[2]);
-
-     let dateServer = element.date.split('-');
-     let dateServerTable = new Date(+dateServer[0],+dateServer[1],+dateServer[2])
-
-     switch (element.hall.nameHall) {
-      case this.selectedValue:
-        if(dateInputClient.getDate() == dateServerTable.getDate()){
-          this.triggerExit.push(false);
-          console.log(this.triggerExit);
-          //...create function (element,modelTimetable)
-          let timeServerTable = element.time.split(':');
-          let timeInputClient = this.modelTimetable.time.split(':');
-    
-          dateInputClient = new Date(dateInputClient.getFullYear(),dateInputClient.getMonth(),dateInputClient.getDate(),+timeInputClient[0],+timeInputClient[1]);
-          dateServerTable = new Date(dateServerTable.getFullYear(),dateServerTable.getMonth(),dateServerTable.getDate(),+timeServerTable[0],+timeServerTable[1]);
-    
-          let dateServerTableClose = new Date();
-          let dateInputClientClose = new Date();
-    
-          dateServerTableClose.setFullYear(dateServerTable.getFullYear(),dateServerTable.getMonth(),dateServerTable.getDate());
-          dateServerTableClose.setTime(dateServerTable.getTime());
-          dateServerTableClose.setMinutes(dateServerTableClose.getMinutes() + +element.film.long);
-    
-          dateInputClientClose.setFullYear(dateInputClient.getFullYear(),dateInputClient.getMonth(),dateInputClient.getDate());
-          dateInputClientClose.setTime(dateInputClient.getTime());
-          dateInputClientClose.setMinutes(dateInputClientClose.getMinutes() + +this.modelTimetable.film.long);
-    
-          console.log(dateServerTable.getTime() + " dateServerTable ");
-          console.log(dateServerTableClose.getTime()+ " dateServerTableClose ");
-          console.log(dateInputClient.getTime()+ " dateInputClient");
-          console.log(dateInputClientClose.getTime()+ " dateInputClientClose");
-
-
-
-          if((
-              dateServerTable.getTime() <= dateInputClient.getTime() &&
-              dateServerTableClose.getTime() <= dateInputClient.getTime()
-              )||(
-              dateServerTable.getTime() >= dateInputClientClose.getTime() &&
-              dateServerTableClose.getTime() >= dateInputClientClose.getTime()
-            )){this.triggerContinuation.push(true);} else {this.triggerContinuation.push(false);}
-        }else{
-          console.log(dateInputClient.getDate())
-          console.log(dateServerTable.getDate())
-          this.triggerExit.push(true);
-          console.log(this.triggerExit);
-          console.log(this.triggerExit.length + " length");
-        }
-        break;
-    }
-  });
+      let dateClient = this.modelTimetable.date.split('-');
+      let dateInputClient = new Date(+dateClient[0], +dateClient[1], +dateClient[2]);
+ 
+      let dateServer = element.date.split('-');
+      let dateServerTable = new Date(+dateServer[0],+dateServer[1],+dateServer[2])
+      console.log(this.modelCinema.timetable.length + "fff");
+      switch (element.hall.nameHall) {
+       case this.selectedValue:{
+         if(dateInputClient.getDate() == dateServerTable.getDate()){
+           this.triggerExit.push(false);
+           console.log(this.triggerExit);
+           //...create function (element,modelTimetable)
+           let timeServerTable = element.time.split(':');
+           let timeInputClient = this.modelTimetable.time.split(':');
+     
+           dateInputClient = new Date(dateInputClient.getFullYear(),dateInputClient.getMonth(),dateInputClient.getDate(),+timeInputClient[0],+timeInputClient[1]);
+           dateServerTable = new Date(dateServerTable.getFullYear(),dateServerTable.getMonth(),dateServerTable.getDate(),+timeServerTable[0],+timeServerTable[1]);
+     
+           let dateServerTableClose = new Date();
+           let dateInputClientClose = new Date();
+     
+           dateServerTableClose.setFullYear(dateServerTable.getFullYear(),dateServerTable.getMonth(),dateServerTable.getDate());
+           dateServerTableClose.setTime(dateServerTable.getTime());
+           dateServerTableClose.setMinutes(dateServerTableClose.getMinutes() + +element.film.long);
+     
+           dateInputClientClose.setFullYear(dateInputClient.getFullYear(),dateInputClient.getMonth(),dateInputClient.getDate());
+           dateInputClientClose.setTime(dateInputClient.getTime());
+           dateInputClientClose.setMinutes(dateInputClientClose.getMinutes() + +this.modelTimetable.film.long);
+ 
+           if((
+               dateServerTable.getTime() <= dateInputClient.getTime() &&
+               dateServerTableClose.getTime() <= dateInputClient.getTime()
+               )||(
+               dateServerTable.getTime() >= dateInputClientClose.getTime() &&
+               dateServerTableClose.getTime() >= dateInputClientClose.getTime()
+             )){this.triggerContinuation.push(true);} else {this.triggerContinuation.push(false);}
+         }else{
+           this.triggerExit.push(true);
+           console.log(this.triggerExit);
+         }break;
+       }
+       default:{
+        defaultSwithcase++;
+        if(defaultSwithcase == this.modelCinema.timetable.length){
+          console.log(`def - ${defaultSwithcase}, model - ${this.modelCinema.timetable.length}`);
+          alert("Фильм успешно добавлен");
+          this.httpService.postAdd(this.modelTimetable).subscribe((data:any) => {
+            this.ex=data.result;
+          });;
+          this.router.navigate(['view-cinema']);
+        }break;
+       }
+     }
+   });
+  }
 
   for (let i = 0; i < this.triggerExit.length; i++) {
     if(this.triggerExit[i] == true){
       triggerNumber++; console.log(triggerNumber)
     }
     if(triggerNumber == this.triggerExit.length){
-      console.log("Можно отправлять 1");
       alert("Фильм успешно добавлен");
       this.httpService.postAdd(this.modelTimetable).subscribe((data:any) => {
         this.ex=data.result;
       });;
       this.router.navigate(['view-cinema']);
     }
-    else console.log("Неможно отправлять 1");
   }
 
   triggerNumber = 0;
@@ -123,20 +131,16 @@ export class AddFilmComponent implements OnInit {
     }
     if(triggerNumber == this.triggerContinuation.length){
       alert("Фильм успешно добавлен");
-      console.log("Можно отправлять");
       this.httpService.postAdd(this.modelTimetable).subscribe((data:any) => {
         this.ex=data.result;
       });;
       this.router.navigate(['view-cinema']);
     }
-    else console.log("Неможно отправлять");
   }
-
 
   if(triggerNumber != this.triggerContinuation.length){
     alert("Фильм нельзя добавить");
   }
-
 
   console.log(this.modelTimetable);
   }

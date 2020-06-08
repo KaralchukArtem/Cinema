@@ -1,85 +1,67 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpService } from 'src/services/http.service';
-import { CinemaModel } from 'src/models//cinema/cinema';
 import { error } from '@angular/compiler/src/util';
+import { BuyTicketsService } from 'src/services/buytickets.service';
+import { Timetable } from 'src/models/cinema/timetable';
+import { Tickets } from 'src/models/cinema/tickets';
 
 @Component({
   selector: 'app-buy-ticket',
   templateUrl: './buy-ticket.component.html',
-  styleUrls: ['./buy-ticket.component.less']
+  styleUrls: ['./buy-ticket.component.less'],
+  providers: [HttpService]
 })
 export class BuyTicketComponent implements OnInit {
 
 //переделать кусок говна, нету модели
 
-  public model: CinemaModel;
-  public time: any;
-  public busy_input:any;
-  public amount:any;
-  public vacancy:any;
+  public timetable = new Timetable();
+  public tickets = new Tickets();
+  public dateFilm: Date;
+  public busy_input: any;
   public done:boolean = false;
-  public price_of_ticket = 0;
+  public price_of_ticket = 5;
 
-  constructor(private activateRoute: ActivatedRoute, private httpService: HttpService){
-      this.time = activateRoute.snapshot.params['time'];
+  constructor(private activateRoute: ActivatedRoute, private httpService: HttpService, private buytickets: BuyTicketsService){
+    this.timetable = buytickets.timetable;
+    this.dateFilm = buytickets.dateFilm;
   }
 
-   ngOnInit(): void{
-      this.httpService.getCinema().subscribe((data:any) => {
-        this.model= data.result[0];
-        console.log(this.model.timetable);
-    });
+  ngOnInit(): void{ 
+    
   }
 
   submit(){
-    var busy: String;
-    var nameCinema = this.model.nameCinema;
-    let film: any;
-    var date: any;
-    var nameHall: any;
-    this.price_of_ticket = 5;
-
-    this.model.timetable.forEach(element => {
-      if(this.time == element.time){
-
-        this.amount = element.hall.amount;
-        film = element.film.name;
-        date = element.date;
-        nameHall = element.hall.nameHall;
-        busy = element.hall.busy;
-
+    console.log(this.timetable);
         if(this.busy_input>0){
-          this.price_of_ticket *=this.busy_input;
+          this.tickets.cost = this.price_of_ticket * this.busy_input;
+          this.timetable.hall.busy = (+this.timetable.hall.busy + this.busy_input).toString(); 
+          this.timetable.hall.vacancy = (+this.timetable.hall.amount - +this.timetable.hall.busy).toString();
+          let date = new Date(this.dateFilm.getFullYear(),this.dateFilm.getMonth(),this.dateFilm.getDate());
+          if(+this.timetable.hall.vacancy >= 0){
+            this.done = true; 
+            //..говно переделать не красиво  
+            this.tickets.timefilm = this.timetable.time;
+            this.tickets.number_of_tickets = this.busy_input;
+            this.tickets.hallname = this.timetable.hall.nameHall;
+            this.tickets.filmname = this.timetable.film.name;
+            this.tickets.datefilm = `${this.dateFilm.getFullYear()}-${this.dateFilm.getMonth()}-${this.dateFilm.getDate()}`;
+            console.log(this.timetable.hall.amount + " timetable amount")
+            console.log(this.timetable.hall.busy + " timetable busy")
+            console.log(this.timetable.hall.vacancy + " timetable vacancy")
+            console.log(this.tickets.datefilm + " date");
+            this.httpService.postUpdateHall(this.timetable).subscribe((date:any)=>{
+              console.log(date);
+            })
+            this.httpService.postCreateTicket(this.tickets).subscribe((date:any)=>{
+              console.log(date);
+            })
+            alert("Попука проведена успешна");
+          }else{
+            this.price_of_ticket = 0;
+            alert("Превысили лимит свободных билетов")
+          }
         }
-
-        busy = this.busy_input + +busy;
-        if((this.amount - (+busy))>=0){
-          this.done = true;
-          this.vacancy = this.amount - (+busy);
-          alert("Попука проведена успешна");
-          this.httpService.getBuyTicket(
-            this.amount,
-            this.vacancy,
-            busy,
-            nameCinema,
-            film,
-            date,
-            this.time,
-            this.price_of_ticket,
-            nameHall,
-            this.busy_input
-          ).subscribe((data:any) => {
-            this.model=data.result;
-            this.done = true;
-          });
-        }else{
-          this.price_of_ticket = 0;
-          alert("Превысили лимит свободных билетов")}
-      }else{
-        console.log(error);
       }
-    });
-    console.log(busy + " busy " + this.busy_input +" busy_input "+ this.amount +" amount "+ this.vacancy+ " vacancy ");
-  }
 }

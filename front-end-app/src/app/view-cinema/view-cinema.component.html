@@ -39,7 +39,7 @@
                 </ul>
                 <ul>
                     <li *ngFor="let t of films">{{t.time}}
-                        <button [routerLink] = "['/buy-ticket', t.time ]">buy</button>
+                        <button (click)="buyTickets(t)">buy</button>
                     </li>
                 </ul>
             </div>

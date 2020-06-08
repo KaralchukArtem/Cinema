@@ -15,7 +15,7 @@ const routes: Routes = [
     {path: 'news', component: NewsCinemaComponent},
     {path: 'add', component: AddCinemaComponent},
     {path: 'view-cinema', component: ViewCinemaComponent},
-    {path: 'buy-ticket/:time', component: BuyTicketComponent},
+    {path: 'buy-ticket', component: BuyTicketComponent},
     {path: 'registration', component: RegistrationComponent},
     {path: 'login', component: LoginComponent},
     {path: 'add-film', component: AddFilmComponent},

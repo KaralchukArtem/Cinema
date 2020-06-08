@@ -1,7 +1,7 @@
 <app-header></app-header>
 <div class="container">
     <div class="head-info-film">
-        <div class="event">
+        <!-- <div class="event">
             <label class="event-footer">Мериприятие и Время</label>
             <div *ngFor="let t of model.timetable">
                 <ul *ngIf="t.time == time">
@@ -26,15 +26,16 @@
                 </ul>
             </div>
             <button class="btn btn-default" (click)="submit()">ОПЛАТИТЬ</button>
-        </div>
+        </div> -->
     </div>
     <div class="right-side">
         <div class="form-group">
             <label>Введите количество мест:</label>
-            <input class="form-control" type="number" name="busy_input" [(ngModel)]="busy_input"/>
+            <input class="form-control" type="number" min="1" value="1" name="busy_input" [(ngModel)]="busy_input"/>
+            <button class="btn btn-default" (click)="submit()">ОПЛАТИТЬ</button>
         </div>
     </div>
-    <div class="left-side">
+    <!-- <div class="left-side">
         <div class="check-info" *ngIf="done">
             <label>Чек</label>
             <div class="info" *ngFor="let t of model.timetable">
@@ -47,5 +48,5 @@
                 </ul>
             </div>
         </div>
-    </div>
+    </div> -->
 </div>

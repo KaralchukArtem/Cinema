@@ -1,9 +1,9 @@
 export class Tickets {
-    cinema:String;
-    film:String;
-    date:String;
-    time:String;
+    nameCinema: "Викинг";
+    filmname:String;
+    datefilm:String;
+    timefilm:String;
     cost:Number;
-    hall:String;
+    hallname:String;
     number_of_tickets:Number;
 }

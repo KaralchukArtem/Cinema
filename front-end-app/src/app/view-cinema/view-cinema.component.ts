@@ -2,6 +2,9 @@ import {Component, OnInit} from '@angular/core';
 import {HttpService} from '../../services/http.service';
 import {AuthenticationService} from 'src/services/authentication.service';
 import {CinemaModel} from '../../models/cinema/cinema'
+import { Timetable } from 'src/models/cinema/timetable';
+import { BuyTicketsService } from 'src/services/buytickets.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-view-cinema',
@@ -14,16 +17,19 @@ export class ViewCinemaComponent implements OnInit {
   public model = new CinemaModel();
   public flag: boolean = false;
   public daysRender = [];
-  public films = [];
+  public films:Timetable[] = [];
   public current = new Date();
   public days = ['ВС', 'ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ'];
+  public buyTicketsDate = new Date();
 
   onClickDayBtn(date) {
     this.current = date.getDate();
+    this.buyTicketsDate = date;
     this.initFilms(date);
   }
 
   initFilms(date) {
+    console.log(date);
     this.films = [];
     for (let i = 0; i < this.model.timetable.length; i++) {
       let strDate = this.model.timetable[i].date.toString().split('-')
@@ -40,7 +46,12 @@ export class ViewCinemaComponent implements OnInit {
     }
   }
 
-  constructor(private httpService: HttpService, private accountService: AuthenticationService) {
+  constructor(
+    private httpService: HttpService, 
+    private accountService: AuthenticationService,
+    private buytickets: BuyTicketsService,
+    private router:Router
+    ) {
     this.flag = this.accountService.flag;
     this.httpService.getCinema().subscribe((data: any) => {
       this.model = data.result[0];
@@ -58,4 +69,10 @@ export class ViewCinemaComponent implements OnInit {
       })
     }
   }
+
+  buyTickets(timetable:Timetable){
+    this.buytickets.searchFilm(timetable,this.buyTicketsDate);
+    this.router.navigate(['/buy-ticket']);
+  }
+
 }
