@@ -1,32 +1,31 @@
 <app-header></app-header>
 <div class="container">
     <div class="head-info-film">
-        <!-- <div class="event">
+        <div class="event">
             <label class="event-footer">Мериприятие и Время</label>
-            <div *ngFor="let t of model.timetable">
-                <ul *ngIf="t.time == time">
-                    <li>Название фильма: {{t.film.name}}</li>
-                    <li>Время:  {{t.time}}</li>
+            <div>
+                <ul>
+                    <li>Название фильма: {{timetable.film.name}}</li>
+                    <li>Время:  {{timetable.time}}</li>
                 </ul>
             </div>
         </div>
         <div class="place-hall">
             <label class="event-footer">Количество мест в зале</label>
-            <div *ngFor="let t of model.timetable">
-                <ul *ngIf="t.time == time">
-                    <li>Количество мест: {{t.hall.vacancy}}</li>
+            <div>
+                <ul>
+                    <li>Количество мест: {{timetable.hall.vacancy}}</li>
                 </ul>
             </div>
         </div>
         <div class="buy-view-head">
             <label class="event-footer">Стоимость билета</label>
-            <div *ngFor="let t of model.timetable">
-                <ul *ngIf="t.time == time">
+            <div>
+                <ul>
                     <li>Стоимость: {{price_of_ticket}} бел.р</li>
                 </ul>
             </div>
-            <button class="btn btn-default" (click)="submit()">ОПЛАТИТЬ</button>
-        </div> -->
+        </div>
     </div>
     <div class="right-side">
         <div class="form-group">
@@ -35,18 +34,4 @@
             <button class="btn btn-default" (click)="submit()">ОПЛАТИТЬ</button>
         </div>
     </div>
-    <!-- <div class="left-side">
-        <div class="check-info" *ngIf="done">
-            <label>Чек</label>
-            <div class="info" *ngFor="let t of model.timetable">
-                <ul *ngIf="t.time == time">
-                        <li>Кинотеатр: {{model.nameCinema}}</li>
-                        <li>Фильм: {{t.film.name}}</li>
-                        <li>Время: {{t.time}}</li>
-                        <li>Количество месть: {{busy_input}}</li>
-                        <li>Стоимость: {{price_of_ticket}}</li>
-                </ul>
-            </div>
-        </div>
-    </div> -->
 </div>
