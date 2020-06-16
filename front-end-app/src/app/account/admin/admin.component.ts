@@ -55,11 +55,11 @@ export class AdminComponent implements OnInit {
     else console.log("da2")
 
     this.cinema.timetable.forEach(element => {
-      let dateCheck = element.date.split(".");
+      let dateCheck = element.film.date.split(".");
       if(dateCheck[2] >= first[0] && dateCheck[1] >= first[1] && dateCheck[0] >= first[2] &&
         dateCheck[2] <= second[0] && dateCheck[1] <= second[1] && dateCheck[0] <= second[2]){
           // let busy = +element.hall.busy;
-          this.tickets = this.tickets + +element.hall.busy; 
+          this.tickets = this.tickets + +element.film.hall.busy; 
           console.log(this.tickets + " tickets ");
         }
     });
@@ -67,7 +67,7 @@ export class AdminComponent implements OnInit {
     this.sumTickets = 6 * +this.tickets;
     console.log(this.sumTickets + " sumTickets ");
 
-    console.log(first + " firstdate " + second + " se " + this.cinema.timetable[0].date);
+    console.log(first + " firstdate " + second + " se " + this.cinema.timetable[0].film.date);
     console.log(day1 + " firstdate " + day2+ " se");
 
     console.log(day3+ " day3");

@@ -3,6 +3,7 @@ import {HttpClient, HttpParams} from '@angular/common/http';
 import { Timetable } from 'src/models/cinema/timetable';
 import { AccountModel } from 'src/models/account/account';
 import { Tickets } from 'src/models/cinema/tickets';
+import { Film } from 'src/models/cinema/film';
    
 @Injectable()
 export class HttpService{
@@ -85,16 +86,25 @@ export class HttpService{
         return this.http.get('http://localhost:3000/login',{params});
     }
 
-    postAdd( timetable:Timetable )
+    postAddTimetable( timetable:Timetable )
     {
         const body:Timetable = timetable;
+        console.log("postAdd -callback" + body);
+        return this.http.post('http://localhost:3000/db-save-timetable', body); 
+    }
+
+    postAddFilm( film:Film )
+    {
+        const body:Film = film;
         console.log("postAdd -callback" + body);
         return this.http.post('http://localhost:3000/db-save-film', body); 
     }
 
-    getCheckDate(){
-        //...доделать не пахет херня (((
-        return this.http.get('http://localhost:3000/checkDate');
+    getViewFilm( name: String){
+        console.log("getViewFilm");
+        const params = new HttpParams()
+        .set('password',name.toString());
+        return this.http.get('http://localhost:3000/login',{params});
     }
     
 }

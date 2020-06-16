@@ -9,6 +9,7 @@ import { LoginComponent } from './login/login.component';
 import { AddFilmComponent } from './add-film/add-film.component';
 import { AdminComponent } from './account/admin/admin.component';
 import { UserComponent } from './account/user/user.component';
+import { TicketsPdfComponent } from './tickets-pdf/tickets-pdf.component';
 
 
 const routes: Routes = [
@@ -21,6 +22,7 @@ const routes: Routes = [
     {path: 'add-film', component: AddFilmComponent},
     {path: 'admin', component: AdminComponent},
     {path: 'user', component: UserComponent},
+    {path: 'pdf', component:TicketsPdfComponent}
 
 ];
 

@@ -7,7 +7,7 @@ export class CinemaModel {
     adress: String;
     number: String;
     aboutCinema: String;
-      timetable: Timetable[];
-      tickets: Tickets[];
-      hall: Hall[];
+      timetable = new Array<Timetable>();
+      tickets = new Array<Tickets>();
+      hall = new Array<Hall>();
 }

@@ -1,0 +1,33 @@
+<app-header></app-header>
+<div>
+    <div id="content" #content>
+        <h1>Билет</h1>
+        <div class="ticket">
+          <div class="table-primary">
+            <tr>
+              <th>Кинотеатр</th>
+              <th>Название фильма</th>
+              <th>Дата</th>
+              <th>Время</th>
+              <th>Стоимость</th>
+              <th>Зал</th>
+              <th>Количество</th>
+            </tr>
+          </div>
+          <div class="table-content">
+            <tr>
+              <td>Викинг</td>
+              <td>{{tickets.filmname}}</td>
+              <td>{{tickets.datefilm}}</td>
+              <td>{{tickets.timefilm}}</td>
+              <td>{{tickets.cost}}</td>
+              <td>{{tickets.hallname}}</td>
+              <td>{{tickets.number_of_tickets}}</td>
+            </tr>
+          </div>
+        </div>
+    </div>
+    <div class="">
+        <button (click)="downloadPDF()">Скачать PDF</button>
+    </div>
+</div>

@@ -5,6 +5,7 @@ import {CinemaModel} from '../../models/cinema/cinema'
 import { Timetable } from 'src/models/cinema/timetable';
 import { BuyTicketsService } from 'src/services/buytickets.service';
 import { Router } from '@angular/router';
+import { Film } from 'src/models/cinema/film';
 
 @Component({
   selector: 'app-view-cinema',
@@ -17,7 +18,7 @@ export class ViewCinemaComponent implements OnInit {
   public model = new CinemaModel();
   public flag: boolean = false;
   public daysRender = [];
-  public films:Timetable[] = [];
+  public films:Film[] = [];
   public current = new Date();
   public days = ['ВС', 'ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ'];
   public buyTicketsDate = new Date();
@@ -31,19 +32,21 @@ export class ViewCinemaComponent implements OnInit {
   initFilms(date) {
     console.log(date);
     this.films = [];
-    for (let i = 0; i < this.model.timetable.length; i++) {
-      let strDate = this.model.timetable[i].date.toString().split('-')
-      let date2 = new Date(`${strDate[0]}-${strDate[1]}-${strDate[2]}`)
-      let today = new Date(date)
-      let beforeAdd = new Date(date2);
-      date2.setDate(date2.getDate() + 14)
-      if (
-        today <= date2 &&
-        today >= beforeAdd
-      ) {
-        this.films.push(this.model.timetable[i])
-      }
-    }
+    this.model.timetable.forEach(element => {
+      element.film.forEach(elementFilm => {
+        let strDate = elementFilm.date.toString().split('-');
+        let date2 = new Date(`${strDate[0]}-${strDate[1]}-${strDate[2]}`)
+        let today = new Date(date);
+        let beforeAdd = new Date(date2);
+        date2.setDate(date2.getDate() + 14)
+        if (
+          today <= date2 &&
+          today >= beforeAdd
+        ) {
+          this.films.push(elementFilm);
+        }
+      });
+    });
   }
 
   constructor(
@@ -70,8 +73,8 @@ export class ViewCinemaComponent implements OnInit {
     }
   }
 
-  buyTickets(timetable:Timetable){
-    this.buytickets.searchFilm(timetable,this.buyTicketsDate);
+  buyTickets(){
+    this.buytickets.searchFilm(this.model,this.buyTicketsDate);
     this.router.navigate(['/buy-ticket']);
   }
 

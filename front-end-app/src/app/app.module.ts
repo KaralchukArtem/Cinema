@@ -17,6 +17,7 @@ import { FooterComponent } from './footer/footer.component';
 import { AddFilmComponent } from './add-film/add-film.component';
 import { AuthenticationService } from 'src/services/authentication.service';
 import { AdminComponent } from './account/admin/admin.component';
+import { TicketsPdfComponent } from './tickets-pdf/tickets-pdf.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { AdminComponent } from './account/admin/admin.component';
     HeaderComponent,
     FooterComponent,
     AddFilmComponent,
-    AdminComponent
+    AdminComponent,
+    TicketsPdfComponent
   ],
   imports: [
     BrowserModule,

@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Timetable } from 'src/models/cinema/timetable';
+import { Tickets } from 'src/models/cinema/tickets';
+import { CinemaModel } from 'src/models/cinema/cinema';
 
 
 @Injectable({
@@ -7,18 +9,17 @@ import { Timetable } from 'src/models/cinema/timetable';
 })
 export class BuyTicketsService {
 
-  public timetable:Timetable;
+  public timetable = new CinemaModel();
   public dateFilm: Date;
+  public tickets = new Tickets();
 
   constructor() { }
 
-  searchFilm(agr:Timetable, date:Date):Timetable{
-    console.log(agr.film.name + " agr");
-    console.log(agr.time + " time");
+  searchFilm(agr:CinemaModel, date:Date):CinemaModel{
     console.log(date + " date");
     this.timetable = agr;
     this.dateFilm = date;
-    return this.timetable[0];
+    return this.timetable;
   }
 
 }

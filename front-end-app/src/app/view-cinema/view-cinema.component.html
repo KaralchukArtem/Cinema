@@ -34,12 +34,12 @@
             <div class="timetable-film">
                 <ul>
                     <li *ngFor="let t of films">
-                      {{t.film.name}}
+                      {{t.name}}
                     </li>
                 </ul>
                 <ul>
                     <li *ngFor="let t of films">{{t.time}}
-                        <button (click)="buyTickets(t)">buy</button>
+                        <button (click)="buyTickets()">buy</button>
                     </li>
                 </ul>
             </div>

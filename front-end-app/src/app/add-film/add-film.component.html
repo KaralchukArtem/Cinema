@@ -1,23 +1,40 @@
 <app-header></app-header>
 <div class="movie-filling">
-    <div class="form-group">
+    <div class="form-group-film">
+        <label>Фильм</label>
+        <select required placeholder="Ваше имя" [(ngModel)]="selectedValueFilm">
+            <option *ngFor="let item of modelCinema.hall" value="{{item.nameHall}}">{{item.nameHall}}</option>
+        </select>
+        Не обязательно
+    </div>
+    <div class="form-group-film-content">
         <div class="form-control-lable">
             <label>Название фильма</label>
             <label>Время</label>
-            <label>Дата</label>
             <label>Длительность</label>
             <label>Описание</label>
             <label>Зал</label>
         </div>
         <div class="form-control-input">
-            <input type="text" required placeholder="Название фильма" [(ngModel)]="modelTimetable.film.name" />
-            <input type="time" required [(ngModel)]="modelTimetable.time" />
-            <input type="date" required [(ngModel)]="modelTimetable.date" />
-            <input type="text" required placeholder="Длительность минуты" [(ngModel)]="modelTimetable.film.long" />
-            <input type="text" [(ngModel)]="modelTimetable.film.about" />
-            <select required placeholder="Ваше имя" [(ngModel)]="selectedValue">
+            <input type="text" required placeholder="Название фильма" [(ngModel)]="modelFilm.name" />
+            <input type="time" required [(ngModel)]="modelFilm.time" />
+            <input type="text" required placeholder="Длительность минуты" [(ngModel)]="modelFilm.long" />
+            <input type="text" [(ngModel)]="modelFilm.about" />
+            <select required placeholder="Ваше имя" [(ngModel)]="selectedValueHall">
                 <option *ngFor="let item of modelCinema.hall" value="{{item.nameHall}}">{{item.nameHall}}</option>
             </select>
+        </div>
+    </div>
+    <div class="from-group-date">
+        <div class="form-control-lable">
+            <label>Начало фильма</label>
+            <label>Конец фильма</label>
+            <label>День сеанса</label>
+        </div>
+        <div class="form-control-input">
+            <input type="date" required [(ngModel)]="modelTimetable.dateStart" />
+            <input type="date" required [(ngModel)]="modelTimetable.dateEnd" />
+            <input type="date" required [(ngModel)]="modelFilm.date" />
         </div>
     </div>
     <button routerLink="/view-cinema">Назад</button>
