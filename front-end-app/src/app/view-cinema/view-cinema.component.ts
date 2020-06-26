@@ -37,7 +37,7 @@ export class ViewCinemaComponent implements OnInit {
       weekDate.setDate(today+i)
       let weekDay = weekDate.getDay()
       this.daysRender.push({
-        date: today + i,
+        date: weekDate.getDate(),
         day: this.days[weekDay]
       })
       console.log(weekDay, new Date(`2020-${month}-${today + i}`))
@@ -47,12 +47,15 @@ export class ViewCinemaComponent implements OnInit {
   initFilms(date) {
     this.films = [];
     for (let i = 0; i < this.model.timetable.length; i++) {
-      let strDate = this.model.timetable[i].date.toString().split('.')
-      let date2 = new Date(`${strDate[2]}-${strDate[1]}-${strDate[0]}`)
+      let strDate = this.model.timetable[i].date.toString().split('-')
+      let date2 = new Date(`${strDate[0]}-${strDate[1]}-${strDate[2]}`)
       let today = new Date()
       let beforeAdd = new Date(date2);
+      console.log(date2.getDate() + "   date2");
       date2.setDate(date2.getDate() + 14)
+      console.log(date2.getDate() + "   date2 + 14");
       today.setDate(date);
+      console.log(today + " today")
       if (
         today <= date2 &&
         today >= beforeAdd
