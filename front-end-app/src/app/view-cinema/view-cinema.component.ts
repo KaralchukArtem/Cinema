@@ -34,14 +34,14 @@ export class ViewCinemaComponent implements OnInit {
     this.films = [];
     this.model.timetable.forEach(element => {
       element.film.forEach(elementFilm => {
-        let strDate = elementFilm.date.toString().split('-');
-        let date2 = new Date(`${strDate[0]}-${strDate[1]}-${strDate[2]}`)
+        let strDateEnd = element.dateEnd.toString().split('-');
+        let dateEnd = new Date(`${strDateEnd[0]}-${strDateEnd[1]}-${strDateEnd[2]}`)
         let today = new Date(date);
-        let beforeAdd = new Date(date2);
-        date2.setDate(date2.getDate() + 14)
+        let strDateStart = element.dateStart.toString().split('-');
+        let dateStart = new Date(`${strDateStart[0]}-${strDateStart[1]}-${strDateStart[2]}`);
         if (
-          today <= date2 &&
-          today >= beforeAdd
+          today <= dateEnd &&
+          today >= dateStart
         ) {
           this.films.push(elementFilm);
         }
@@ -73,9 +73,15 @@ export class ViewCinemaComponent implements OnInit {
     }
   }
 
-  buyTickets(){
-    this.buytickets.searchFilm(this.model,this.buyTicketsDate);
-    this.router.navigate(['/buy-ticket']);
+  buyTickets(name: String, time:String){
+    this.films.forEach(element => {
+      if(element.name == name && element.time == time){
+        // console.log(element);
+        this.buytickets.searchFilm(element);
+        this.router.navigate(['/buy-ticket']);
+      }
+    });
+    
   }
 
 }

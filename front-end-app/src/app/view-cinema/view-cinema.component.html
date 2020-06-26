@@ -14,7 +14,7 @@
     </div>
     <div class="right-side">
         <div class="choose-date">
-            <div class="top-name"><h1>Кинотеарт {{model.nameCinema}}</h1></div>
+            <div class="top-name"><h1>Кинотеатр {{model.nameCinema}}</h1></div>
             <div class="calendar">
                 <ul class="week">
                     <li *ngFor="let item of daysRender " (click)="onClickDayBtn(item.date)">
@@ -39,7 +39,7 @@
                 </ul>
                 <ul>
                     <li *ngFor="let t of films">{{t.time}}
-                        <button (click)="buyTickets()">buy</button>
+                        <button (click)="buyTickets(t.name,t.time)">buy</button>
                     </li>
                 </ul>
             </div>

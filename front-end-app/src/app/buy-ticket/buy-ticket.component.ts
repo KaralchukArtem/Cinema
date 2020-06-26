@@ -22,7 +22,7 @@ export class BuyTicketComponent implements OnInit {
   public busy_input: any;
   public done:boolean = false;
   public price_of_ticket = 5;
-
+ 
   constructor(private activateRoute: ActivatedRoute, private httpService: HttpService, private buytickets: BuyTicketsService,private router: Router){
     this.modelCinema = buytickets.timetable;
     this.dateFilm = buytickets.dateFilm;

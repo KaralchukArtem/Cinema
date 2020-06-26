@@ -3,7 +3,7 @@
     <div class="form-group-film">
         <label>Фильм</label>
         <select required placeholder="Ваше имя" [(ngModel)]="selectedValueFilm">
-            <option *ngFor="let item of modelCinema.hall" value="{{item.nameHall}}">{{item.nameHall}}</option>
+            <option *ngFor="let item of modelCinema.timetable;"  (click)="searchFilm()" value="{{item.name}}">{{item.name}}</option>
         </select>
         Не обязательно
     </div>
