@@ -12,6 +12,7 @@ export class BuyTicketsService {
 
   public film = new Film();
   public tickets = new Tickets();
+  public Date: Date;
 
   constructor() { }
 

@@ -5,8 +5,9 @@
             <label class="event-footer">Мериприятие и Время</label>
             <div>
                 <ul>
-                    <li>Название фильма: {{timetable.film.name}}</li>
-                    <li>Время:  {{timetable.time}}</li>
+                    <li>Название фильма: {{film.name}}</li>
+                    <li>Время:  {{film.time}}</li>
+                    <li>Дата:  {{date}}</li>
                 </ul>
             </div>
         </div>
@@ -14,7 +15,9 @@
             <label class="event-footer">Количество мест в зале</label>
             <div>
                 <ul>
-                    <li>Количество мест: {{timetable.hall.vacancy}}</li>
+                    <li>Количество мест в зале: {{film.hall.vacancy}}</li>
+                    <li>Количество мест в ряду: 5 </li>
+                    <li>Количество рядов: 10 </li>
                 </ul>
             </div>
         </div>
@@ -29,8 +32,10 @@
     </div>
     <div class="right-side">
         <div class="form-group">
-            <label>Введите количество мест:</label>
-            <input class="form-control" type="number" min="1" value="1" name="busy_input" [(ngModel)]="busy_input"/>
+            <label>Введите место:</label>
+            <input class="form-control" type="number" min="1" value="1" name="row_input" [(ngModel)]="row_input"/>
+            <label>Введите ряд:</label>
+            <input class="form-control" type="number" min="1" value="1" name="place_input" [(ngModel)]="place_input"/>
             <button class="btn btn-default" (click)="submit()">ОПЛАТИТЬ</button>
         </div>
     </div>

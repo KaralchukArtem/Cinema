@@ -53,9 +53,9 @@ export class HttpService{
     }
 
     postUpdateHall(
-        timetable:Timetable
+        film:Film
     ){
-        const body:Timetable = timetable;
+        const body:Film = film;
         console.log("postUpdateHall -callback" + body);
         return this.http.post('http://localhost:3000/updateHall', body);
     }

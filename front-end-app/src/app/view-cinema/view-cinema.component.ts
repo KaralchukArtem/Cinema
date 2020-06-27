@@ -22,7 +22,7 @@ export class ViewCinemaComponent implements OnInit {
   public current = new Date();
   public days = ['ВС', 'ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ'];
   public buyTicketsDate = new Date();
-
+ 
   onClickDayBtn(date) {
     this.current = date.getDate();
     this.buyTicketsDate = date;
@@ -78,6 +78,7 @@ export class ViewCinemaComponent implements OnInit {
       if(element.name == name && element.time == time){
         // console.log(element);
         this.buytickets.searchFilm(element);
+        this.buytickets.Date = this.buyTicketsDate;
         this.router.navigate(['/buy-ticket']);
       }
     });

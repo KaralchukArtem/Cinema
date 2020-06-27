@@ -116,12 +116,12 @@ app.post('/updateHall', (req,res) =>{
   console.log("updateHall");
   mongoose.connect(configDB, { useNewUrlParser: true, useUnifiedTopology: true}, (err, client) => {
 
-    client.db.collection("cinemas").updateMany( {"nameCinema":"Викинг","timetable.time":query.time, "timetable.date":query.date}, 
+    client.db.collection("cinemas").updateMany( {"nameCinema":"Викинг",'timetable':{ $elemMatch: {'film' :{$elemMatch:{'time': query.time}}}}, 'timetable':{ $elemMatch: {'film' :{$elemMatch:{'name': query.name}}}}}, 
     {
       $set : { 
-        'timetable.$.hall.amount': query.hall.amount,
-        'timetable.$.hall.vacancy': query.hall.vacancy,
-        'timetable.$.hall.busy': query.hall.busy
+        'timetable.$.film' : [{
+          ...query
+        }]
       }
     })
  
