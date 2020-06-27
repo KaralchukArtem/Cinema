@@ -22,8 +22,8 @@ const routes: Routes = [
     {path: 'add-film', component: AddFilmComponent},
     {path: 'admin', component: AdminComponent},
     {path: 'user', component: UserComponent},
-    {path: 'pdf', component:TicketsPdfComponent}
-
+    {path: 'pdf', component:TicketsPdfComponent},
+    {path: '', redirectTo: 'view-cinema', pathMatch: 'full'}
 ];
 
 @NgModule({
