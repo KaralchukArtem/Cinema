@@ -1,42 +1,53 @@
 <app-header></app-header>
 <div class="container">
-    <div class="head-info-film">
-        <div class="event">
-            <label class="event-footer">Мериприятие и Время</label>
-            <div>
-                <ul>
-                    <li>Название фильма: {{film.name}}</li>
-                    <li>Время:  {{film.time}}</li>
-                    <li>Дата:  {{date}}</li>
-                </ul>
-            </div>
-        </div>
-        <div class="place-hall">
-            <label class="event-footer">Количество мест в зале</label>
-            <div>
-                <ul>
-                    <li>Количество мест в зале: {{film.hall.vacancy}}</li>
-                    <li>Количество мест в ряду: 5 </li>
-                    <li>Количество рядов: 10 </li>
-                </ul>
-            </div>
-        </div>
-        <div class="buy-view-head">
-            <label class="event-footer">Стоимость билета</label>
-            <div>
-                <ul>
-                    <li>Стоимость: {{price_of_ticket}} бел.р</li>
-                </ul>
-            </div>
-        </div>
+  <div class="head-info-film">
+    <div class="event">
+      <label class="event-footer">Мериприятие и Время</label>
+      <div>
+        <ul>
+          <li>Название фильма: {{film.name}}</li>
+          <li>Время:  {{film.time}}</li>
+          <li>Дата:  {{date}}</li>
+        </ul>
+      </div>
     </div>
-    <div class="right-side">
-        <div class="form-group">
-            <label>Введите место:</label>
-            <input class="form-control" type="number" min="1" value="1" name="row_input" [(ngModel)]="row_input"/>
-            <label>Введите ряд:</label>
-            <input class="form-control" type="number" min="1" value="1" name="place_input" [(ngModel)]="place_input"/>
-            <button class="btn btn-default" (click)="submit()">ОПЛАТИТЬ</button>
-        </div>
+    <div class="place-hall">
+      <label class="event-footer">Количество мест в зале</label>
+      <div>
+        <ul>
+          <li>Количество мест в зале: {{film.hall.vacancy}}</li>
+          <li>Количество мест в ряду: 5</li>
+          <li>Количество рядов: 10</li>
+        </ul>
+      </div>
     </div>
+    <div class="buy-view-head">
+      <label class="event-footer">Стоимость билета</label>
+      <div>
+        <ul>
+          <li>Стоимость: {{price_of_ticket}} бел.р</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="right-side">
+
+    <div class='sitePeckerContainer'>
+      <div class="screen"> Screen </div>
+      <div class="row">
+        <div class="pos"></div>
+        <div class="pos" *ngFor="let item of siteMap[0]; let i = index">
+          {{i + 1}}
+        </div>
+      </div>
+      <div class="row" *ngFor="let item of siteMap; let i = index">
+        <div class="pos">{{String.fromCharCode(65+i)}}</div>
+        <div *ngFor="let cell of item; let j = index" class="cell" (click)="setSeat(i,j)" [ngClass]="{grey:cell}">
+          {{j * (i + 1)}}
+        </div>
+      </div>
+    </div>
+    <button class="btn btn-default" (click)="submit()">ОПЛАТИТЬ</button>
+  </div>
+
 </div>

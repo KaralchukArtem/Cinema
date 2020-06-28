@@ -1,43 +1,97 @@
-.container{
-    width: 1100px;
-    height: 700px;
-    // background-color: #;
-    margin-left: 9.3%;
-    .head-info-film{
-        display: flex;
-        float: left;
-        width: 1098px;
-        border-bottom: 2px solid black;
-        text-align: center;
-        margin-bottom: 30px;
-        ul{
-            padding: 0;
-        }
-        .event-footer{
-            margin-bottom: 5px;
-            border-bottom: 1px solid black;
-        }
-        .event{
-            width: 400px;
-        }
-        .place-hall{
-            width: 300px;
-            border-left: 1px solid black;
-            border-right: 1px solid black;
-        }
-        .buy-view-head{
-            width: 400px;
-        }
+.container {
+  width: 1100px;
+  height: 700px;
+  // background-color: #;
+  margin-left: 9.3%;
+
+  .head-info-film {
+    display: flex;
+    float: left;
+    width: 1098px;
+    border-bottom: 2px solid black;
+    text-align: center;
+    margin-bottom: 30px;
+
+    ul {
+      padding: 0;
     }
-    .right-side{
-        display: flex;
-        float: left;
-        width: 1098px;
-        height: 450px;
-        background-color: darkgray;
-        .form-group{
-            margin: 0 auto;
-            margin-top: 100px;
-        }
+
+    .event-footer {
+      margin-bottom: 5px;
+      border-bottom: 1px solid black;
     }
+
+    .event {
+      width: 400px;
+    }
+
+    .place-hall {
+      width: 300px;
+      border-left: 1px solid black;
+      border-right: 1px solid black;
+    }
+
+    .buy-view-head {
+      width: 400px;
+    }
+  }
+
+  .right-side {
+    display: flex;
+    float: left;
+    width: 1098px;
+    height: 450px;
+    flex-direction: column;
+    background-color: darkgray;
+
+    .form-group {
+      margin: 0 auto;
+      margin-top: 100px;
+    }
+  }
+}
+
+.row {
+  display: flex;
+}
+
+.cell {
+  padding-top: 10px;
+  background-color: white;
+  width: 35px;
+  height: 25px;
+  margin: 5px;
+  border-radius: 10px;
+  text-align: center
+}
+
+.grey {
+  background-color: grey;
+  box-shadow: inset 0px 0px 17px 0px #00000073;
+}
+
+.sitePeckerContainer {
+  padding-left: 25%;
+  padding-top: 2%;
+}
+
+.screen {
+  font-size: xx-large;
+  width: 60%;
+  margin-left: 38px;
+  text-align: center;
+  height: 40px;
+  background-color: white;
+  margin-bottom: 41px;
+}
+.pos{
+  width: 35px;
+  margin: 5px;
+  height: 35px;
+}
+button{
+  margin-top: 20px;
+  width: 120px;
+  height: 52px;
+  margin: auto;
 }
