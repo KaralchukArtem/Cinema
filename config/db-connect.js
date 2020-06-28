@@ -10,7 +10,7 @@ const Account = mongoose.model('Account', AccountSchema);
 exports.Account = Account;
 exports.Cinema = Cinema;
 exports.connect = function (callback) {
-  mongoose.connect(config.testUrl, { useNewUrlParser: true, useUnifiedTopology: true}, (err, client) => {
+  mongoose.connect(config.db, { useNewUrlParser: true, useUnifiedTopology: true}, (err, client) => {
         // const c = new Cinema({});
         console.log('callback');
         callback(err, client);

@@ -2,6 +2,10 @@ import {Component, OnInit} from '@angular/core';
 import {HttpService} from '../../services/http.service';
 import {AuthenticationService} from 'src/services/authentication.service';
 import {CinemaModel} from '../../models/cinema/cinema'
+import { Timetable } from 'src/models/cinema/timetable';
+import { BuyTicketsService } from 'src/services/buytickets.service';
+import { Router } from '@angular/router';
+import { Film } from 'src/models/cinema/film';
 
 @Component({
   selector: 'app-view-cinema',
@@ -12,35 +16,45 @@ import {CinemaModel} from '../../models/cinema/cinema'
 export class ViewCinemaComponent implements OnInit {
 
   public model = new CinemaModel();
-  flag: boolean = false;
-  daysRender = [];
-  films = [];
-  current = new Date().getDate();
-  days = ['ВС', 'ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ'];
-
+  public flag: boolean = false;
+  public daysRender = [];
+  public films:Film[] = [];
+  public current = new Date();
+  public days = ['ВС', 'ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ'];
+  public buyTicketsDate = new Date();
+ 
   onClickDayBtn(date) {
-    this.initFilms(date);
     this.current = date.getDate();
+    this.buyTicketsDate = date;
+    this.initFilms(date);
   }
 
   initFilms(date) {
+    console.log(date);
     this.films = [];
-    for (let i = 0; i < this.model.timetable.length; i++) {
-      let strDate = this.model.timetable[i].date.toString().split('.')
-      let date2 = new Date(`${strDate[2]}-${strDate[1]}-${strDate[0]}`)
-      let today = new Date(date)
-      let beforeAdd = new Date(date2);
-      date2.setDate(date2.getDate() + 14)
-      if (
-        today <= date2 &&
-        today >= beforeAdd
-      ) {
-        this.films.push(this.model.timetable[i])
-      }
-    }
+    this.model.timetable.forEach(element => {
+      element.film.forEach(elementFilm => {
+        let strDateEnd = element.dateEnd.toString().split('-');
+        let dateEnd = new Date(`${strDateEnd[0]}-${strDateEnd[1]}-${strDateEnd[2]}`)
+        let today = new Date(date);
+        let strDateStart = element.dateStart.toString().split('-');
+        let dateStart = new Date(`${strDateStart[0]}-${strDateStart[1]}-${strDateStart[2]}`);
+        if (
+          today <= dateEnd &&
+          today >= dateStart
+        ) {
+          this.films.push(elementFilm);
+        }
+      });
+    });
   }
 
-  constructor(private httpService: HttpService, private accountService: AuthenticationService) {
+  constructor(
+    private httpService: HttpService, 
+    private accountService: AuthenticationService,
+    private buytickets: BuyTicketsService,
+    private router:Router
+    ) {
     this.flag = this.accountService.flag;
     this.httpService.getCinema().subscribe((data: any) => {
       this.model = data.result[0];
@@ -58,4 +72,17 @@ export class ViewCinemaComponent implements OnInit {
       })
     }
   }
+
+  buyTickets(name: String, time:String){
+    this.films.forEach(element => {
+      if(element.name == name && element.time == time){
+        // console.log(element);
+        this.buytickets.searchFilm(element);
+        this.buytickets.Date = this.buyTicketsDate;
+        this.router.navigate(['/buy-ticket']);
+      }
+    });
+    
+  }
+
 }

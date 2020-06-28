@@ -5,20 +5,24 @@ const HallSchema = new mongoose.Schema({
   amount: Number,
   vacancy: Number,
   busy: Number,
+  row: Number,
+  place: Number,
 })
 
 const FilmSchema = new mongoose.Schema({
+  hall: HallSchema,
   name: String,
   long: Number,
   IMDb: Number,
   about: String,
+  time: String,
+  date: String,
 });
 
 const TimeTableSchema = new mongoose.Schema({
-  time: String,
-  date: String,
-  film: FilmSchema,
-  hall: HallSchema,
+  film: [FilmSchema],
+  dateStart: String,
+  dateEnd: String,
 });
 
 const TicketsSchema = new mongoose.Schema({
@@ -38,7 +42,8 @@ const CinemaSchema = new mongoose.Schema(
     number: String,
     aboutCinema: String,
     timetable: [TimeTableSchema],
-    tickets: [TicketsSchema]
+    tickets: [TicketsSchema],
+    hall: [HallSchema]
   }
 );
 

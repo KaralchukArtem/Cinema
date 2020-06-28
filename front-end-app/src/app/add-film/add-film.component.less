@@ -1,12 +1,80 @@
-.form-group{
+.movie-filling{
     text-align: center;
-    margin-top: 16%;
-    .form-control{
-        margin-bottom: 10px;
-        text-align: justify;
-        margin-left: 39%;
+    margin-top: 6%;
+    .form-group-film{
+        background-color: #dfdfdf;
+        width: 398px;
+        height: 25px;
+        padding: 10px;
+        margin-left: 35%;
+        margin-bottom: 20px;
+        border-radius: 6px;
+        select{
+            margin-left: 30px;
+            border: none;
+            border-radius: 6px;
+            height: 22px;
+        }
     }
-    button{
-        margin-top: 20px;
+    .form-group-film-content{
+        display: flex;
+        background-color: #dfdfdf;
+        width: 367px;
+        height: 195px;
+        padding: 10px;
+        padding-left: 10px;
+        text-align: center;
+        padding-left: 42px;
+        margin-left: 35%;
+        margin-bottom: 20px;
+        border-radius: 6px;
+        .form-control-lable{
+            display: grid;
+            text-align: justify;
+            margin-right: 20px;
+            label{
+                margin-bottom: 3px;
+                height: 30px;
+            }
+        }
+        .form-control-input{
+            display: grid;
+            border-radius: 6px;
+            input{
+                margin-bottom: 3px;
+                height: 20px;
+                border-radius: 6px;
+                border: none;
+                text-align: center;
+            }
+            select{
+                border: none;
+                border-radius: 6px;
+            }
+        }
     }
+    .from-group-date{
+        background-color: #dfdfdf;
+        width: 410px;
+        height: 80px;
+        padding-left: 10px;
+        margin-left: 35%;
+        margin-bottom: 20px;
+        border-radius: 6px;
+        padding-top: 15px;
+        .form-control-lable{
+            margin-bottom: 15px;
+            label{
+                margin: 0px 15px 0px 15px;
+            }
+        }
+        .form-control-input{
+            input{
+                margin-left: 26px;
+                margin-right: 26px;
+                width: 75px;
+            }
+        }
+    }
+    button{}
 }

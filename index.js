@@ -6,11 +6,12 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const CinemaRoute = require('./routes/cinema-route');
 const { connect, Cinema , Account} = require('./config/db-connect');
+const { query } = require('express');
 
 const app = express();
 
-const PORT = process.env.PORT || 3001;
-
+const PORT = process.env.PORT || 3000;
+const configDB = config.db;
 
 app.use(cors());
 
@@ -55,7 +56,7 @@ app.get('/db-save', (req,res) =>{
         }]
     });
 
-    mongoose.connect(config.testUrl, { useNewUrlParser: true, useUnifiedTopology: true}, (err, client) => {
+    mongoose.connect(configDB, { useNewUrlParser: true, useUnifiedTopology: true}, (err, client) => {
       sum.save((err, cinema) => console.log(err, cinema))
       console.log('callback');
 })
@@ -63,23 +64,42 @@ app.get('/db-save', (req,res) =>{
     res.send({result: sum});
 })
 
-app.post('/db-save-film', (req,res) =>
+//...добавление фильма которого нету
+app.post('/db-save-timetable', (req,res) =>
 {
-  query = req.body
-  mongoose.connect(config.testUrl, { useNewUrlParser: true, useUnifiedTopology: true}, (err, client) => {
+  console.log(req.body);
+  const query = req.body
+  mongoose.connect(configDB, { useNewUrlParser: true, useUnifiedTopology: true}, (err, client) => {
     client.db.collection("cinemas").updateMany({"nameCinema": "Викинг"}, {
       $push : { 
         'timetable': {
             ...query
           }
       }})
+    console.log('callback add-timetable');
+  })
+})
+
+//...добавление времени фильма который уже есть
+app.post('/db-save-film', (req,res) =>
+{
+  const query = req.body
+  mongoose.connect(configDB, { useNewUrlParser: true, useUnifiedTopology: true}, (err, client) => {
+    client.db.collection("cinemas").updateMany({"nameCinema": "Викинг",'timetable':{ $elemMatch: {'film' :{$elemMatch:{'name': query.name}}}}}, {
+      $push : { 
+          'timetable.$.film':{
+            ...query
+          }
+      }
+    })
     console.log('callback add-film');
   })
 })
 
+
 app.get('/db-view-cinema', (req,res) =>{
 
-    mongoose.connect(config.testUrl, { useNewUrlParser: true, useUnifiedTopology: true}, (err, client) => {
+    mongoose.connect(configDB, { useNewUrlParser: true, useUnifiedTopology: true}, (err, client) => {
       if(err) return console.log(err);
       client.db.collection("cinemas").find({nameCinema:"Викинг"}).toArray((err, data) => {
         console.log(err, data)
@@ -90,28 +110,42 @@ app.get('/db-view-cinema', (req,res) =>{
     })
 })
 
-app.get('/buy-ticket', (req,res) =>{
-  query = req.query;
-  mongoose.connect(config.testUrl, { useNewUrlParser: true, useUnifiedTopology: true}, (err, client) => {
+app.post('/updateHall', (req,res) =>{
+  const query = req.body;
+  console.log(query);
+  console.log("updateHall");
+  mongoose.connect(configDB, { useNewUrlParser: true, useUnifiedTopology: true}, (err, client) => {
 
-    client.db.collection("cinemas").updateMany( {"nameCinema":"Викинг","timetable.time": query.time}, 
+    client.db.collection("cinemas").updateMany( {"nameCinema":"Викинг",'timetable':{ $elemMatch: {'film' :{$elemMatch:{'time': query.time}}}}, 'timetable':{ $elemMatch: {'film' :{$elemMatch:{'name': query.name}}}}}, 
     {
       $set : { 
-        'timetable.$.hall.amount': query.amount,
-        'timetable.$.hall.vacancy': query.vacancy,
-        'timetable.$.hall.busy': query.busy
+        'timetable.$.film' : [{
+          ...query
+        }]
       }
     })
-    
+ 
+    //...add new document in collection
+    // client.db.collection("cinemas").insertOne({"name": "Tom", "age": 28, languages: ["english", "spanish"]})
+    console.log('callback - buy-ticket');
+  })
+})
+
+app.post('/createTicket', (req,res) =>{
+  const query = req.body;
+  console.log(query);
+  console.log("createTicket");
+  mongoose.connect(configDB, { useNewUrlParser: true, useUnifiedTopology: true}, (err, client) => {
+
     client.db.collection("cinemas").updateMany({"nameCinema":"Викинг"}, {
           $push : { 
             'tickets': {
-                "nameCinema":query.nameCinema,
-                "film":query.film,
-                "date":query.date,
-                "time":query.time,
+                "nameCinema":"Викинг",
+                "film":query.filmname,
+                "date":query.datefilm,
+                "time":query.timefilm,
                 "cost":query.cost,
-                "nameHall":query.nameHall,
+                "nameHall":query.hallname,
                 "number_of_tickets":query.number_of_tickets
               }
           }})
@@ -122,9 +156,9 @@ app.get('/buy-ticket', (req,res) =>{
 })
 
 app.post('/registration',(req,res) =>{
-  query = req.body;
+  const query = req.body;
   console.log(query)
-  mongoose.connect(config.testUrl, { useNewUrlParser: true, useUnifiedTopology: true}, (err, client) => {
+  mongoose.connect(configDB, { useNewUrlParser: true, useUnifiedTopology: true}, (err, client) => {
 
     client.db.collection("account").save(
           {
@@ -135,7 +169,7 @@ app.post('/registration',(req,res) =>{
 });
 
 app.get('/login', (req, res) => {
-  query= req.query;
+  const query= req.query;
   console.log(query);
   connect((err,client) => {
     if (err) { console.error(err); return }
@@ -150,20 +184,6 @@ app.get('/login', (req, res) => {
   console.log("callback - login");
 });
 
-app.get('/checkDate', (req,res) =>{
-  query = req.body;
-  console.log(query)
-  mongoose.connect(config.testUrl, { useNewUrlParser: true, useUnifiedTopology: true}, (err, client) => {
-    //...доделать не пахет херня (((
-    client.db.collection("cinemas").find({nameCinema: "Викинг"},
-    {'timetable.$.time': "10:45"}
-    ).toArray((err, data) => {
-        console.log(err, data)
-        res.send({result:data});
-      });
-    })
-    console.log("callback - checkDate")
-})
 
 connect((err, client) => {
   if (err) { console.error(err); return }

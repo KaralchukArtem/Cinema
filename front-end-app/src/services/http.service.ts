@@ -2,14 +2,14 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import { Timetable } from 'src/models/cinema/timetable';
 import { AccountModel } from 'src/models/account/account';
-
+import { Tickets } from 'src/models/cinema/tickets';
+import { Film } from 'src/models/cinema/film';
+   
 @Injectable()
 export class HttpService{
-
+   
     constructor(private http: HttpClient){ }
-
-    api:string = 'http://localhost:3001'
-
+      
     getSum(
         // CinemaSchema
         nameCinema: String,
@@ -45,47 +45,34 @@ export class HttpService{
         .set('amount', amount.toString())
         .set('vacancy', vacancy.toString())
         .set('busy', busy.toString());
-        return this.http.get(this.api + '/db-save/', {params});
-    }
-    getCinema(){
-        return this.http.get(this.api + '/db-view-cinema/');
+        return this.http.get('http://localhost:3000/db-save', {params});
     }
 
-    getBuyTicket(
-        //...updating hall
-        amount: String,
-        vacancy: String,
-        busy: String,
-        //...creating new tickets
-        nameCinema: String,
-        film: String,
-        date: String,
-        time: String,
-        cost: Number,
-        nameHall: String,
-        number_of_tickets: String
+    getCinema(){
+        return this.http.get('http://localhost:3000/db-view-cinema');
+    }
+
+    postUpdateHall(
+        film:Film
     ){
-        console.log(film);
-        console.log(time);
-        const params = new HttpParams()
-        .set('amount', amount.toString())
-        .set('vacancy', vacancy.toString())
-        .set('busy', busy.toString())
-        .set('nameCinema', nameCinema.toString())
-        .set('film', film.toString())
-        .set('date', date.toString())
-        .set('time', time.toString())
-        .set('cost', cost.toString())
-        .set('nameHall', nameHall.toString())
-        .set('number_of_tickets', number_of_tickets.toString());
-        return this.http.get(this.api + '/buy-ticket/', {params});
+        const body:Film = film;
+        console.log("postUpdateHall -callback" + body);
+        return this.http.post('http://localhost:3000/updateHall', body);
+    }
+    
+    postCreateTicket(
+        ticket:Tickets
+    ){
+        const body:Tickets = ticket;
+        console.log("postCreateTicket -callback" + body);
+        return this.http.post('http://localhost:3000/createTicket', body);
     }
 
     postRegistration( account:AccountModel )
     {
         const body:AccountModel = account;
         console.log("postRegistration -callback" + body);
-        return this.http.post(this.api + '/registration/', body);
+        return this.http.post('http://localhost:3000/registration', body);
     }
 
     getLogin(
@@ -96,19 +83,28 @@ export class HttpService{
         const params = new HttpParams()
         .set('password',password.toString())
         .set('email',email.toString());
-        return this.http.get(this.api + '/login/',{params});
+        return this.http.get('http://localhost:3000/login',{params});
     }
 
-    postAdd( timetable:Timetable )
+    postAddTimetable( timetable:Timetable )
     {
         const body:Timetable = timetable;
         console.log("postAdd -callback" + body);
-        return this.http.post(this.api + '/db-save-film/', body);
+        return this.http.post('http://localhost:3000/db-save-timetable', body); 
     }
 
-    getCheckDate(){
-        //...доделать не пахет херня (((
-        return this.http.get(this.api + '/checkDate/');
+    postAddFilm( film:Film )
+    {
+        const body:Film = film;
+        console.log("postAdd -callback" + body);
+        return this.http.post('http://localhost:3000/db-save-film', body); 
     }
 
+    getViewFilm( name: String){
+        console.log("getViewFilm");
+        const params = new HttpParams()
+        .set('password',name.toString());
+        return this.http.get('http://localhost:3000/login',{params});
+    }
+    
 }

@@ -3,49 +3,40 @@
     <div class="head-info-film">
         <div class="event">
             <label class="event-footer">Мериприятие и Время</label>
-            <div *ngFor="let t of model.timetable">
-                <ul *ngIf="t.time == time">
-                    <li>Название фильма: {{t.film.name}}</li>
-                    <li>Время:  {{t.time}}</li>
+            <div>
+                <ul>
+                    <li>Название фильма: {{film.name}}</li>
+                    <li>Время:  {{film.time}}</li>
+                    <li>Дата:  {{date}}</li>
                 </ul>
             </div>
         </div>
         <div class="place-hall">
             <label class="event-footer">Количество мест в зале</label>
-            <div *ngFor="let t of model.timetable">
-                <ul *ngIf="t.time == time">
-                    <li>Количество мест: {{t.hall.vacancy}}</li>
+            <div>
+                <ul>
+                    <li>Количество мест в зале: {{film.hall.vacancy}}</li>
+                    <li>Количество мест в ряду: 5 </li>
+                    <li>Количество рядов: 10 </li>
                 </ul>
             </div>
         </div>
         <div class="buy-view-head">
             <label class="event-footer">Стоимость билета</label>
-            <div *ngFor="let t of model.timetable">
-                <ul *ngIf="t.time == time">
+            <div>
+                <ul>
                     <li>Стоимость: {{price_of_ticket}} бел.р</li>
                 </ul>
             </div>
-            <button class="btn btn-default" (click)="submit()">ОПЛАТИТЬ</button>
         </div>
     </div>
     <div class="right-side">
         <div class="form-group">
-            <label>Введите количество мест:</label>
-            <input class="form-control" type="number" name="busy_input" [(ngModel)]="busy_input"/>
-        </div>
-    </div>
-    <div class="left-side">
-        <div class="check-info" *ngIf="done">
-            <label>Чек</label>
-            <div class="info" *ngFor="let t of model.timetable">
-                <ul *ngIf="t.time == time">
-                        <li>Кинотеатр: {{model.nameCinema}}</li>
-                        <li>Фильм: {{t.film.name}}</li>
-                        <li>Время: {{t.time}}</li>
-                        <li>Количество месть: {{busy_input}}</li>
-                        <li>Стоимость: {{price_of_ticket}}</li>
-                </ul>
-            </div>
+            <label>Введите место:</label>
+            <input class="form-control" type="number" min="1" value="1" name="row_input" [(ngModel)]="row_input"/>
+            <label>Введите ряд:</label>
+            <input class="form-control" type="number" min="1" value="1" name="place_input" [(ngModel)]="place_input"/>
+            <button class="btn btn-default" (click)="submit()">ОПЛАТИТЬ</button>
         </div>
     </div>
 </div>
