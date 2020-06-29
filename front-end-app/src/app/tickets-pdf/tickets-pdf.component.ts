@@ -10,18 +10,18 @@ import * as jsPDF from 'jspdf';
 })
 export class TicketsPdfComponent implements OnInit{
 
-  public tickets = new Tickets();
+  public tickets = new Array<Tickets>();
   public filmname:string;
 
   @ViewChild('content') content:ElementRef;
 
   constructor(private buytickets:BuyTicketsService) {
-      this.tickets = buytickets.tickets;
+    
       console.log(typeof(this.tickets.datefilm),typeof(this.tickets.filmname), typeof(this.tickets.hallname))
    }
 
   ngOnInit(){
-    
+    this.tickets = this.buytickets.tickets;
   }
 
   public downloadPDF():void{

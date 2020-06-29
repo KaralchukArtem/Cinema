@@ -11,7 +11,7 @@ import { Film } from 'src/models/cinema/film';
 export class BuyTicketsService {
 
   public film = new Film();
-  public tickets = new Tickets();
+  public tickets = [];
   public Date: Date;
 
   constructor() { }

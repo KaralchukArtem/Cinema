@@ -131,6 +131,19 @@ app.post('/updateHall', (req,res) =>{
   })
 })
 
+app.get('/getTickets', (req,res) =>{
+
+  mongoose.connect(configDB, { useNewUrlParser: true, useUnifiedTopology: true}, (err, client) => {
+    if(err) return console.log(err);
+    client.db.collection("cinemas").find({nameCinema:"Викинг"}).toArray((err, data) => {
+      console.log(err, data)
+      res.send({result:data[0].tickets});
+    });
+    
+    console.log('callback - db-view-cinema');
+  })
+})
+
 app.post('/createTicket', (req,res) =>{
   const query = req.body;
   console.log(query);
@@ -141,12 +154,16 @@ app.post('/createTicket', (req,res) =>{
           $push : { 
             'tickets': {
                 "nameCinema":"Викинг",
-                "film":query.filmname,
-                "date":query.datefilm,
+                "filmname":query.filmname,
+                "datename":query.datefilm,
                 "time":query.timefilm,
                 "cost":query.cost,
                 "nameHall":query.hallname,
-                "number_of_tickets":query.number_of_tickets
+                "number_of_tickets":query.number_of_tickets,
+                "seat":{
+                  'row': query.seat.row,
+                  'cell': query.seat.cell
+                }
               }
           }})
     //...add new document in collection
@@ -185,7 +202,9 @@ app.get('/login', (req, res) => {
 });
 
 
-connect((err, client) => {
+connect((err, client) => {app.get('*', (req,res) =>{
+  res.sendFile(path.join(__dirname+'/public/index.html'));
+});
   if (err) { console.error(err); return }
   //...search document in collection
   client.db.collection("cinemas").find({}).toArray((err, data) => console.log(err, data));

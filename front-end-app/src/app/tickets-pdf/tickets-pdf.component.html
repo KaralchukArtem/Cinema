@@ -1,6 +1,6 @@
 <app-header></app-header>
 <div>
-    <div id="content" #content>
+    <div *ngFor="let item of tickets "  id="content" #content>
         <h1>Билет</h1>
         <div class="ticket">
           <div class="table-primary">
@@ -17,12 +17,12 @@
           <div class="table-content">
             <tr>
               <td>Викинг</td>
-              <td>{{tickets.filmname}}</td>
-              <td>{{tickets.datefilm}}</td>
-              <td>{{tickets.timefilm}}</td>
-              <td>{{tickets.cost}}</td>
-              <td>{{tickets.hallname}}</td>
-              <td>{{tickets.number_of_tickets}}</td>
+              <td>{{item.filmname}}</td>
+              <td>{{item.datefilm}}</td>
+              <td>{{item.timefilm}}</td>
+              <td>{{item.cost}}</td>
+              <td>{{item.hallname}}</td>
+              <td>{{item.number_of_tickets}}</td>
             </tr>
           </div>
         </div>
