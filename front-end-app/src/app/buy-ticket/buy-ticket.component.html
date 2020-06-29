@@ -43,7 +43,7 @@
       <div class="row" *ngFor="let item of siteMap; let i = index">
         <div class="pos">{{String.fromCharCode(65+i)}}</div>
         <div *ngFor="let cell of item; let j = index" class="cell" (click)="setSeat(i,j)" [ngClass]="{grey:cell}">
-          {{j * (i + 1)}}
+          {{(j+1)}}
         </div>
       </div>
     </div>

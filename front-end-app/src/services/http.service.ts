@@ -59,7 +59,11 @@ export class HttpService{
         console.log("postUpdateHall -callback" + body);
         return this.http.post('http://localhost:3000/updateHall', body);
     }
-    
+
+    getTickets(){
+        return this.http.get('http://localhost:3000/getTickets');
+    }
+
     postCreateTicket(
         ticket:Tickets
     ){

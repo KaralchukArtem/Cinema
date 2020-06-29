@@ -50,7 +50,7 @@ export class AdminComponent implements OnInit {
     let day1 = new Date( +first[0], +first[1], +first[2]);
     let day2 = new Date( +second[0], +second[1], +second[2]);
     let day3 = (+day2- +day1)/(60*60*24*1000);
-    
+
     if(day1 < day2) console.log("da1")
     else console.log("da2")
 
@@ -59,7 +59,7 @@ export class AdminComponent implements OnInit {
       if(dateCheck[2] >= first[0] && dateCheck[1] >= first[1] && dateCheck[0] >= first[2] &&
         dateCheck[2] <= second[0] && dateCheck[1] <= second[1] && dateCheck[0] <= second[2]){
           // let busy = +element.hall.busy;
-          this.tickets = this.tickets + +element.film.hall.busy; 
+          this.tickets = this.tickets + +element.film.hall.busy;
           console.log(this.tickets + " tickets ");
         }
     });

@@ -6,7 +6,7 @@ export class Tickets {
     public cost:number;
     public hallname:string;
     public number_of_tickets:Number;
-    public seats:[Seat];
+    public seat:Seat;
 }
 
 export class Seat {
