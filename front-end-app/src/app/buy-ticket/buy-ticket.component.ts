@@ -39,7 +39,7 @@ export class BuyTicketComponent implements OnInit {
     private router: Router) {
     this.film = buytickets.film;
     this.dateFilm = buytickets.Date;
-    this.date = `${this.dateFilm.getFullYear()} - ${this.dateFilm.getMonth() + 1} - ${this.dateFilm.getDate()}`;
+    this.date = `${this.dateFilm.getFullYear()} - 0${this.dateFilm.getMonth() + 1} - ${this.dateFilm.getDate()}`;
     
     console.log(this.film);
   }
@@ -90,8 +90,6 @@ export class BuyTicketComponent implements OnInit {
   
       let felted = this.allTickets.filter(k => k.filmname === this.buytickets.film.name && k.datefilm === this.buytickets.film.date);
       this.fillSeatMap(felted);
-  
-
     });
   }
 
@@ -110,7 +108,7 @@ export class BuyTicketComponent implements OnInit {
           this.tickets.hallname = this.film.hall.nameHall.toString();
           this.tickets.filmname = this.film.name;        
           this.tickets.seat = this.seatsUser[i]; // array
-          this.tickets.datefilm = `${this.dateFilm.getFullYear()}-${this.dateFilm.getMonth() + 1}-${this.dateFilm.getDate()}`;  
+          this.tickets.datefilm = `${this.dateFilm.getFullYear()}-0${this.dateFilm.getMonth() + 1}-${this.dateFilm.getDate()}`;  
           this.buytickets.tickets.push(this.tickets); 
           this.httpService.postUpdateHall(this.film).subscribe((date: any) => {
             console.log(date);

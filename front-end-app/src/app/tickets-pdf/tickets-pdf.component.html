@@ -9,9 +9,11 @@
               <th>Название фильма</th>
               <th>Дата</th>
               <th>Время</th>
-              <th>Стоимость</th>
+              <th>Дительность</th>
               <th>Зал</th>
-              <th>Количество</th>
+              <th>Место</th>
+              <th>Ряд</th>
+              <th>Стоимость</th>
             </tr>
           </div>
           <div class="table-content">
@@ -22,6 +24,8 @@
               <td>{{item.timefilm}}</td>
               <td>{{item.cost}}</td>
               <td>{{item.hallname}}</td>
+              <td>{{item.seat.cell + 1}}</td>
+              <td>{{item.seat.row + 1}}</td>
               <td>{{item.number_of_tickets}}</td>
             </tr>
           </div>

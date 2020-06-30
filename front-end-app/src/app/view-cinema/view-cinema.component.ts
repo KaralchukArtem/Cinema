@@ -39,9 +39,11 @@ export class ViewCinemaComponent implements OnInit {
         let today = new Date(date);
         let strDateStart = element.dateStart.toString().split('-');
         let dateStart = new Date(`${strDateStart[0]}-${strDateStart[1]}-${strDateStart[2]}`);
+        let strdateFilm = elementFilm.date.toString().split('-');
+        let dateFilm = new Date(`${strdateFilm[0]}-${strdateFilm[1]}-${strdateFilm[2]}`);
         if (
-          today <= dateEnd &&
-          today >= dateStart
+          (today <= dateEnd && today >= dateStart) &&
+          (today.toLocaleDateString() == dateFilm.toLocaleDateString())
         ) {
           this.films.push(elementFilm);
         }

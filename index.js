@@ -155,7 +155,7 @@ app.post('/createTicket', (req,res) =>{
             'tickets': {
                 "nameCinema":"Викинг",
                 "filmname":query.filmname,
-                "datename":query.datefilm,
+                "datefilm":query.datefilm,
                 "time":query.timefilm,
                 "cost":query.cost,
                 "nameHall":query.hallname,
